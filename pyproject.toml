@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "UniversalFunctions"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Python utility library providing foundational functions, validators, and infrastructure."
 readme = "README.md"
 requires-python = ">=3.14"
@@ -16,4 +16,5 @@ authors = [
 [tool.setuptools.packages.find]
 include = [
     "UF*",
+    "tests*",
 ]
