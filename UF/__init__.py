@@ -21,7 +21,14 @@ not be changed!
 from .ClassToDict import classes_to_dict
 from .DecoratorArchive import deco_superposition, cls_deco_superposition
 from .GetVariable import get_num
-from .HelperFunctions import helper, HelperFunctions, sine, cosine, range_f
+from .HelperFunctions import (
+    helper,
+    HelperFunctions,
+    sine,
+    cosine,
+    asine,
+    range_f,
+)
 from .StringCheck import get_str
 from .Validators.ValidationClasses import (
     TypeValidate,
@@ -47,6 +54,7 @@ __all__ = [
     "HelperFunctions",
     "sine",
     "cosine",
+    "asine",
     "range_f",
     "get_str",
     "TypeValidate",

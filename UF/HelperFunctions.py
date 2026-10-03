@@ -11,7 +11,7 @@ range_f -> acts like the conventional range function except for that this takes 
 
 from typing import Any, Annotated
 from collections.abc import Generator
-from math import sqrt, sin, radians, cos
+from math import sqrt, sin, radians, cos, asin, degrees
 from .GetVariable import get_num
 from .DecoratorArchive import cls_deco_superposition
 from .ClassToDict import classes_to_dict
@@ -106,6 +106,15 @@ def cosine(angle: Real) -> Real:
     :return: cosine value
     """
     return cos(radians(angle))
+
+@qtm_validation_decorator
+def asine(angle: Real) -> Real:
+    """
+    Calculates the asine of a given angle
+    :param angle: real value
+    :return: asine value
+    """
+    return degrees(asin(angle))
 
 @qtm_validation_decorator
 def range_f(start: Real, stop: Real, step: Annotated[Real, Positive()]) -> Generator[Real,Any,None]:
