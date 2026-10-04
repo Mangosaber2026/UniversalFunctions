@@ -3,15 +3,19 @@ This module contains type validators for list and tuple which belong to the QTM 
 """
 
 from typing import Any, get_args, get_origin, Annotated
-from .ValidationClasses import TypeValidate
+from .ValidationClasses import TypeValidate, SequenceValidate
 
-def qtm_lt_validator(value: list[Any] | tuple[Any, ...], TYPE: Any, name: str) -> bool:
+def qtm_lt_validator(value: list[Any] | tuple[Any, ...], TYPE: Any, name: str) -> tuple | list:
     """
-    Takes a list of ONE specific element and validates its contents against the expected type
-    :param value: list of elements
-    :param TYPE: list[expected type]
+    Takes a list/tuple of specific elements and validates its contents against the expected type
+
+    >>> qtm_lt_validator([1, 2, 3], list[int, ...], "random list")
+    [1, 2, 3]
+
+    :param value: list/tuple of elements
+    :param TYPE: list[expected type] for example
     :param name: name of value
-    :return: True if the contents of value satisfy the expected type
+    :return: validated list/tuple of elements
     """
     origin = get_origin(TYPE)
     if origin not in (list, tuple):
@@ -20,21 +24,11 @@ def qtm_lt_validator(value: list[Any] | tuple[Any, ...], TYPE: Any, name: str) -
     TypeValidate(origin)(value)
 
     element_type = get_args(TYPE)
-    if origin is list:
-        if len(element_type) != 1:
-            raise TypeError("TYPE must contain only ONE type!")
+    validator = SequenceValidate(*element_type)
 
-    elif origin is tuple:
-        if len(element_type) != 2 or element_type[1] is not Ellipsis:
-            raise TypeError("tuple TYPE must contain only ONE type with the form tuple[T, ...]!")
+    return validator(value, name=name)
 
-    for index, element in enumerate(value):
-        if not isinstance(element, element_type[0]):
-            raise TypeError(f"{name}[{index}] must be of type {element_type[0].__name__!r}!")
-
-    return True
-
-def qtm_constr_validator(value, annotation, name) -> bool:
+def qtm_constr_validator(value: Any, annotation, name: str) -> Any:
     """
     Takes a value and its annotation and compares it against the expected type
     :param value: given value
@@ -48,9 +42,10 @@ def qtm_constr_validator(value, annotation, name) -> bool:
 
     type_obj, *constraints = get_args(annotation)
 
+    TypeValidate(str)(name, name="name")
     TypeValidate(type_obj)(value, name=name)
 
     for constraint in constraints:
         constraint(value)
 
-    return True
+    return value

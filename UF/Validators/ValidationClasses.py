@@ -6,7 +6,18 @@ from collections.abc import Callable
 
 
 class TypeValidate:
-    """Makes sure the entered value is of correct type"""
+    """
+    Makes sure the entered value is of correct type.
+
+    >>> TypeValidate(float)(-30.9)
+    -30.9
+    >>> TypeValidate(str)('Hello World')
+    'Hello World'
+    >>> TypeValidate(int)(-10)
+    -10
+    >>> TypeValidate((list, int))([1, "2"])
+    [1, '2']
+    """
     def __init__(self, expected: type | tuple[type, ...]):
         """Makes sure the entered value is a type object"""
         if isinstance(expected, tuple):
@@ -37,27 +48,50 @@ class TypeValidate:
         return value
 
 def int_validate() -> TypeValidate:
-    """Makes sure the entered value is an integer with TypeValidate"""
+    """
+    Makes sure the entered value is an integer with TypeValidate.
+
+    >>> int_validate()(-39)
+    -39
+    """
     return TypeValidate(int)
 
 def str_validate() -> TypeValidate:
-    """Makes sure the entered value is a string with TypeValidate"""
+    """
+    Makes sure the entered value is a string with TypeValidate.
+
+    >>> str_validate()('Hello World')
+    'Hello World'
+    """
     return TypeValidate(str)
 
 def real_validate() -> TypeValidate:
-    """Makes sure the entered value is a real number with TypeValidate"""
+    """
+    Makes sure the entered value is a real number with TypeValidate.
+
+    >>> real_validate()(-10.5)
+    -10.5
+    """
     return TypeValidate(Real)
 
 class RealValidationParent:
+    """
+    Parent class for classes which require an expected real number value when an instance is made of them.
+    """
     def __init__(self, expected: Real) -> None:
         self._validator = real_validate()
         self._validator(expected)
         self.expected = expected
 
 class Positive:
-    """Makes sure the entered value is positive"""
+    """
+    Makes sure the entered value is positive.
+
+    >>> Positive()(50)
+    50
+    """
     def __call__(self, value: Real, name: str|None = None) -> Real:
-        """Validates the entered value, expected to be positive (0 included)"""
+        """Validates the entered value, expected to be positive (above 0)"""
         if name is not None:
             real_validate()(value, name)
         else:
@@ -67,7 +101,12 @@ class Positive:
         return value
 
 class LessThan(RealValidationParent):
-    """Makes sure the entered value is less than expected value"""
+    """
+    Makes sure the entered value is less than expected value.
+
+    >>> LessThan(75)(10)
+    10
+    """
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be less than expected value"""
         self._validator(value)
@@ -78,7 +117,14 @@ class LessThan(RealValidationParent):
         return value
 
 class LessOrEqual(RealValidationParent):
-    """Makes sure the entered value is less than or equal to expected value"""
+    """
+    Makes sure the entered value is less than or equal to expected value.
+
+    >>> LessOrEqual(100)(90)
+    90
+    >>> LessOrEqual(50)(50)
+    50
+    """
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be less than or equal to expected value"""
         self._validator(value)
@@ -90,7 +136,12 @@ class LessOrEqual(RealValidationParent):
 
 
 class GreaterThan(RealValidationParent):
-    """Makes sure the entered value is greater than expected value"""
+    """
+    Makes sure the entered value is greater than expected value.
+
+    >>> GreaterThan(5)(10)
+    10
+    """
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be greater than expected value"""
         self._validator(value)
@@ -101,7 +152,14 @@ class GreaterThan(RealValidationParent):
         return value
 
 class GreaterOrEqual(RealValidationParent):
-    """Makes sure the entered value is greater than or equal to expected value"""
+    """
+    Makes sure the entered value is greater than or equal to expected value.
+
+    >>> GreaterOrEqual(5)(10)
+    10
+    >>> GreaterOrEqual(5)(5)
+    5
+    """
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be greater than or equal to expected value"""
         self._validator(value)
@@ -112,7 +170,17 @@ class GreaterOrEqual(RealValidationParent):
         return value
 
 class SequenceValidate:
-    """Makes sure the entered value is a sequence of any value"""
+    """
+    Makes sure the entered value is a sequence of any value.
+
+    >>> validator = SequenceValidate(
+    ...     list,
+    ...     list,
+    ...     callable_items=(SequenceValidate(Real, ...),)
+    ... )
+    >>> validator([[1, 2], [3, 4]])
+    [[1, 2], [3, 4]]
+    """
     def __init__(self, *expected: type | EllipsisType, **kwargs) -> None:
         """Validates and sets the tuple to a variable"""
         for item in expected:
