@@ -1,5 +1,8 @@
 from typing import Any
 from numbers import Real
+from types import EllipsisType
+from itertools import cycle
+from collections.abc import Callable
 
 
 class TypeValidate:
@@ -17,7 +20,7 @@ class TypeValidate:
 
         else:
             raise TypeError(f"Parameter 'expected' MUST be a type object or a tuple of type objects!")
-    def __call__(self, value: Any, name: str | None = None) -> bool:
+    def __call__(self, value: Any, name: str | None = None) -> Any:
         """Validates the entered value, expected to be of expected type"""
         if name is not None and not isinstance(name, str):
             raise TypeError(f"Parameter 'name' MUST be a string object!")
@@ -31,7 +34,7 @@ class TypeValidate:
                 if name is not None:
                     raise TypeError(f"{name} is not of expected type {self.expected!r}!")
                 raise TypeError(f"{value!r} is not of expected type {self.expected!r}!")
-        return True
+        return value
 
 def int_validate() -> TypeValidate:
     """Makes sure the entered value is an integer with TypeValidate"""
@@ -53,7 +56,7 @@ class RealValidationParent:
 
 class Positive:
     """Makes sure the entered value is positive"""
-    def __call__(self, value: Real, name: str|None = None) -> bool:
+    def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be positive (0 included)"""
         if name is not None:
             real_validate()(value, name)
@@ -61,68 +64,99 @@ class Positive:
             real_validate()(value)
         if value <= 0:
             raise ValueError(f"Entered value is expected to be greater than 0!")
-        return True
+        return value
 
 class LessThan(RealValidationParent):
     """Makes sure the entered value is less than expected value"""
-    def __call__(self, value: Real, name: str|None = None) -> bool:
+    def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be less than expected value"""
         self._validator(value)
         if name is not None:
             str_validate()(name, "name")
         if value >= self.expected:
             raise ValueError(f"Entered value ({name}) is expected to be less than {self.expected!r}!")
-        return True
+        return value
 
 class LessOrEqual(RealValidationParent):
     """Makes sure the entered value is less than or equal to expected value"""
-    def __call__(self, value: Real, name: str|None = None) -> bool:
+    def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be less than or equal to expected value"""
         self._validator(value)
         if name is not None:
             str_validate()(name, "name")
         if value > self.expected:
             raise ValueError(f"Entered value ({name}) is expected to be less than or equal to {self.expected!r}!")
-        return True
+        return value
 
 
 class GreaterThan(RealValidationParent):
     """Makes sure the entered value is greater than expected value"""
-    def __call__(self, value: Real, name: str|None = None) -> bool:
+    def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be greater than expected value"""
         self._validator(value)
         if name is not None:
             str_validate()(name, "name")
         if self.expected >= value:
             raise ValueError(f"Entered value ({name}) is expected to be greater than {self.expected!r}!")
-        return True
+        return value
 
 class GreaterOrEqual(RealValidationParent):
     """Makes sure the entered value is greater than or equal to expected value"""
-    def __call__(self, value: Real, name: str|None = None) -> bool:
+    def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be greater than or equal to expected value"""
         self._validator(value)
         if name is not None:
             str_validate()(name, "name")
         if self.expected > value:
             raise ValueError(f"Entered value ({name}) is expected to be greater than or equal to {self.expected!r}!")
-        return True
+        return value
 
-class TupleValidate:
-    """Makes sure the entered value is a tuple of any value"""
-    def __init__(self, *expected: type) -> None:
+class SequenceValidate:
+    """Makes sure the entered value is a sequence of any value"""
+    def __init__(self, *expected: type | EllipsisType, **kwargs) -> None:
         """Validates and sets the tuple to a variable"""
         for item in expected:
-            TypeValidate(type)(item)
+            if item is not Ellipsis:
+                TypeValidate(type)(item)
+            else:
+                if expected[-1] is not Ellipsis:
+                    raise ValueError(f"Entered value ({expected[-1]}) is expected to be an ellipsis type!")
+
         self.expected = expected
 
-    def __call__(self, value: tuple, name: str|None = None) -> bool:
+        callable_name = "callable_items"
+        self.callables = ()
+
+        if callable_name in kwargs:
+            TypeValidate(tuple)(kwargs[callable_name], callable_name)
+            for func in kwargs[callable_name]:
+                TypeValidate(Callable)(func)
+
+            self.callables = kwargs[callable_name]
+
+    def __call__(self, value: tuple|list, name: str|None = None) -> tuple|list:
         """Validates the entered value, expected to be a tuple of expected value/s"""
-        TypeValidate(tuple)(value)
+        if not isinstance(value, (tuple, list)):
+            raise TypeError(f"Entered value ({name}) is expected to be a tuple or list!")
+
         if name is not None:
             str_validate()(name, "name")
-        if len(self.expected) != len(value):
-            raise ValueError(f"Entered value ({name}) must have the same number of elements as the provided expected tuple!")
-        for expected_type, actual_value in zip(self.expected, value):
-            TypeValidate(expected_type)(actual_value)
-        return True
+        type_store = []
+        if isinstance(self.expected[-1], EllipsisType):
+            for item in self.expected:
+                if not isinstance(item, EllipsisType):
+                    type_store.append(item)
+
+            for given_obj, expected_type in zip(value, cycle(type_store)):
+                TypeValidate(expected_type)(given_obj)
+                for func in self.callables:
+                    func(given_obj)
+
+        else:
+            if len(self.expected) != len(value):
+                raise ValueError(f"Entered value ({name}) must have the same number of elements as the provided expected tuple!")
+            for expected_type, actual_value in zip(self.expected, value):
+                TypeValidate(expected_type)(actual_value)
+                for func in self.callables:
+                    func(actual_value)
+        return value
