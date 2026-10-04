@@ -24,12 +24,10 @@ from .GetVariable import get_num
 from .HelperFunctions import (
     helper,
     HelperFunctions,
-    sine,
-    cosine,
-    asine,
     range_f,
 )
 from .StringCheck import get_str
+from .Trigonometry import sine, cosine, asine
 from .Validators.ValidationClasses import (
     TypeValidate,
     Positive,
