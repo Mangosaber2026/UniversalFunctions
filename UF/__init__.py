@@ -38,7 +38,7 @@ from .Validators.ValidationClasses import (
     LessOrEqual,
     GreaterThan,
     GreaterOrEqual,
-    TupleValidate,
+    SequenceValidate,
 )
 from .Validators.QuantumFuncValidators import qtm_validation_decorator, qtm_func_validator
 from .Validators.QuantumValidators import qtm_constr_validator, qtm_lt_validator
@@ -64,7 +64,7 @@ __all__ = [
     "LessOrEqual",
     "GreaterThan",
     "GreaterOrEqual",
-    "TupleValidate",
+    "SequenceValidate",
     "qtm_validation_decorator",
     "qtm_func_validator",
     "qtm_constr_validator",
