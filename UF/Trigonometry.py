@@ -6,32 +6,32 @@ from math import (
     asin,
 )
 from numbers import Real
-from .Validators.QuantumFuncValidators import qtm_validation_decorator
+from .Validators import real_validate
 
 
-@qtm_validation_decorator
 def sine(angle: Real) -> Real:
     """
     Calculates the sine of a given angle
     :param angle: value required in degrees
     :return: sine value
     """
+    real_validate()(angle, name="angle")
     return sin(radians(angle))
 
-@qtm_validation_decorator
 def cosine(angle: Real) -> Real:
     """
     Calculates the cosine of a given angle
     :param angle: value required in degrees
     :return: cosine value
     """
+    real_validate()(angle, name="angle")
     return cos(radians(angle))
 
-@qtm_validation_decorator
-def asine(angle: Real) -> Real:
+def asine(value: Real) -> Real:
     """
     Calculates the asine of a given angle
-    :param angle: real value
+    :param value: real value
     :return: asine value
     """
-    return degrees(asin(angle))
+    real_validate()(value, name="value")
+    return degrees(asin(value))

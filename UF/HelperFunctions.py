@@ -15,14 +15,13 @@ from math import sqrt
 from .GetVariable import get_num
 from .DecoratorArchive import cls_deco_superposition
 from .ClassToDict import classes_to_dict
-from .Validators.QuantumFuncValidators import qtm_validation_decorator
-from .Validators.ValidationClasses import LessThan, Positive
+from .Validators import qtm_validation_decorator, LessThan, Positive
 from numbers import Real
 
 
 @cls_deco_superposition(staticmethod)
 class HelperFunctions:
-
+    """This class provides a collection of reusable helper functions"""
     def intervals_f() -> Real:
         """Asks the user for rational intervals"""
         interval_num: float = get_num(float, "Enter intervals(ℚ>0): ", MIN=0)
@@ -64,8 +63,6 @@ class HelperFunctions:
         Calculates the diameter of a square with given length
         :return: diameter, diameter/2
         """
-        if length <= 0:
-            raise ValueError("Length must be greater than 0")
 
         diameter: float = length*sqrt(2); d_half: Real = diameter / 2
         return diameter, d_half
@@ -90,7 +87,11 @@ class HelperFunctions:
 helper = HelperFunctions
 
 @qtm_validation_decorator
-def range_f(start: Real, stop: Real, step: Annotated[Real, Positive()]) -> Generator[Real,Any,None]:
+def range_f(
+        start: Real,
+        stop: Real,
+        step: Annotated[Real, Positive()]
+) -> Generator[Real,Any,None]:
     """
     Lets the user choose Real inputs for start, stop and step
     :param start: start value; Real number

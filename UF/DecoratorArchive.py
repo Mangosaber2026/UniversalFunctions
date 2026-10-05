@@ -3,16 +3,16 @@ This module contains decorators which take any number of decorators and apply th
 """
 
 from collections.abc import Callable
-from .Validators.QuantumFuncValidators import qtm_validation_decorator
+from .Validators import SequenceValidate
 
 
-@qtm_validation_decorator
-def cls_deco_superposition(*decorators: tuple[Callable, ...]) -> Callable:
+def cls_deco_superposition(*decorators: Callable) -> Callable:
     """
     DECORATOR!!   Creates a class decorator that applies the given decorator to every user defined function
-    :param decorator: provided decorator function
+    :param decorators: provided decorator functions
     :return: a class decorator that transforms the class (& it's functions) and returns it
     """
+    SequenceValidate(Callable, ...)(decorators, name="decorators")
     deco_composer = deco_superposition(*decorators)
 
     def inner(cls):
@@ -22,13 +22,13 @@ def cls_deco_superposition(*decorators: tuple[Callable, ...]) -> Callable:
         return cls
     return inner
 
-@qtm_validation_decorator
-def deco_superposition(*decorators: tuple[Callable, ...]) -> Callable:
+def deco_superposition(*decorators: Callable) -> Callable:
     """
     DECORATOR! this decorator takes multiple decorators and applies them to the given function the same way python would naturally
     :param decorators: decorator functions
     :return: supplied function
     """
+    SequenceValidate(Callable, ...)(decorators, name="decorators")
     def inner_deco(func):
         for decorator in reversed(decorators):
             func = decorator(func)

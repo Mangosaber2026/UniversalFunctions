@@ -5,7 +5,14 @@ This module contains an extremely important function: get_num, which takes a num
 from time import sleep as rest
 from typing import overload, Literal
 from numbers import Real
-from .Validators.ValidationClasses import LessThan, str_validate, real_validate, TypeValidate, GreaterOrEqual, LessOrEqual
+from .Validators import (
+    LessThan,
+    str_validate,
+    real_validate,
+    TypeValidate,
+    GreaterOrEqual,
+    LessOrEqual
+)
 
 
 type int_type = type[int]

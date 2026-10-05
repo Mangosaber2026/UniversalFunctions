@@ -3,7 +3,7 @@ This module contains an extremely important function: get_str, which takes a str
 """
 
 from time import sleep as rest
-from .Validators.ValidationClasses import TypeValidate, str_validate
+from .Validators import TypeValidate, str_validate
 
 
 def get_str(str_input: str, *check_values) -> str:
