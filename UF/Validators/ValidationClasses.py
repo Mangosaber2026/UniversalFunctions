@@ -3,7 +3,7 @@ from numbers import Real
 from types import EllipsisType
 from itertools import cycle
 from collections.abc import Callable
-
+from .Errors import ErrorDedent, ItemCountError, ConstraintError, type_error
 
 class TypeValidate:
     """
@@ -18,33 +18,91 @@ class TypeValidate:
     >>> TypeValidate((list, int))([1, "2"])
     [1, '2']
     """
-    def __init__(self, expected: type | tuple[type, ...]):
+    def __init__(self, expected: type | tuple[type, ...]) -> None:
         """Makes sure the entered value is a type object"""
+        self.name = "TypeValidate"
         if isinstance(expected, tuple):
             for item in expected:
                 if not isinstance(item, type):
-                    raise TypeError(f"Entered value {item!r} is not a type object!")
+                    raise type_error()(f"""
+                    {self.name}:
+                    Entered value {item!r} is not a type object!
+                    Expected: type object
+                    Received: 
+                    Item: {item}
+                    Type: {type(item).__name__}
+                    """)
             self.expected = expected
 
         elif isinstance(expected, type):
             self.expected = expected
 
         else:
-            raise TypeError(f"Parameter 'expected' MUST be a type object or a tuple of type objects!")
+            raise type_error()(f"""
+                {self.name}:
+                Parameter 'expected' MUST be a type object or a tuple of type objects!
+                Expected: type|tuple
+                Received: 
+                Given value for expected: {expected}
+                Type: {type(expected).__name__}
+                """)
+
     def __call__(self, value: Any, name: str | None = None) -> Any:
         """Validates the entered value, expected to be of expected type"""
         if name is not None and not isinstance(name, str):
-            raise TypeError(f"Parameter 'name' MUST be a string object!")
+            raise type_error()(f"""
+            {self.name}:
+            Parameter 'name' MUST be a string object!
+            Expected: str (name of value)
+            Received: 
+            Name: {name}
+            Type: {type(name).__name__}
+            """)
 
         if not isinstance(value, self.expected):
+            value_type = type(value).__name__
+
             if type(self.expected) is type:
+                expected_type: str = self.expected.__name__
+
                 if name is not None:
-                    raise TypeError(f"{name} is not of expected type {self.expected.__name__!r}!")
-                raise TypeError(f"{value!r} is not of expected type {self.expected.__name__!r}!")
+                    raise type_error()(f"""
+                        {self.name}:
+                        Parameter {name!r} is not of expected type {expected_type!r}!
+                        Expected: {expected_type}
+                        Received: 
+                        Name: {value}
+                        Type: {value_type}
+                        """)
+                raise type_error()(f"""
+                    {self.name}:
+                    Parameter value is not of expected type {expected_type!r}!
+                    Expected: {expected_type}
+                    Received:
+                    Value: {value}
+                    Type: {value_type}
+                    """)
+
             elif type(self.expected) is tuple:
+                expected_type: tuple[type, ...] = self.expected
+
                 if name is not None:
-                    raise TypeError(f"{name} is not of expected type {self.expected!r}!")
-                raise TypeError(f"{value!r} is not of expected type {self.expected!r}!")
+                    raise type_error()(f"""
+                        {self.name}:
+                        Parameter {name!r} is not of expected type {expected_type!r}!
+                        Expected: {expected_type}
+                        Received:
+                        Value: {value}
+                        Type: {value_type}
+                        """)
+                raise type_error()(f"""
+                    {self.name}
+                    Parameter value is not of expected type {expected_type!r}!
+                    Expected: {expected_type}
+                    Received:
+                    Value: {value}
+                    Type: {value_type}
+                    """)
         return value
 
 def int_validate() -> TypeValidate:
@@ -97,7 +155,7 @@ class Positive:
         else:
             real_validate()(value)
         if value <= 0:
-            raise ValueError(f"Entered value is expected to be greater than 0!")
+            raise ConstraintError(f"Entered value is expected to be greater than 0!")
         return value
 
 class LessThan(RealValidationParent):
@@ -113,7 +171,7 @@ class LessThan(RealValidationParent):
         if name is not None:
             str_validate()(name, "name")
         if value >= self.expected:
-            raise ValueError(f"Entered value ({name}) is expected to be less than {self.expected!r}!")
+            raise ConstraintError(f"Entered value ({name}) is expected to be less than {self.expected!r}!")
         return value
 
 class LessOrEqual(RealValidationParent):
@@ -131,7 +189,7 @@ class LessOrEqual(RealValidationParent):
         if name is not None:
             str_validate()(name, "name")
         if value > self.expected:
-            raise ValueError(f"Entered value ({name}) is expected to be less than or equal to {self.expected!r}!")
+            raise ConstraintError(f"Entered value ({name}) is expected to be less than or equal to {self.expected!r}!")
         return value
 
 
@@ -148,7 +206,7 @@ class GreaterThan(RealValidationParent):
         if name is not None:
             str_validate()(name, "name")
         if self.expected >= value:
-            raise ValueError(f"Entered value ({name}) is expected to be greater than {self.expected!r}!")
+            raise ConstraintError(f"Entered value ({name}) is expected to be greater than {self.expected!r}!")
         return value
 
 class GreaterOrEqual(RealValidationParent):
@@ -166,7 +224,7 @@ class GreaterOrEqual(RealValidationParent):
         if name is not None:
             str_validate()(name, "name")
         if self.expected > value:
-            raise ValueError(f"Entered value ({name}) is expected to be greater than or equal to {self.expected!r}!")
+            raise ConstraintError(f"Entered value ({name}) is expected to be greater than or equal to {self.expected!r}!")
         return value
 
 class SequenceValidate:
@@ -188,7 +246,7 @@ class SequenceValidate:
                 TypeValidate(type)(item)
             else:
                 if expected[-1] is not Ellipsis:
-                    raise ValueError(f"Entered value ({expected[-1]}) is expected to be an ellipsis type!")
+                    raise TypeError(f"Entered value ({expected[-1]}) is expected to be an ellipsis type!")
 
         self.expected = expected
 
@@ -204,11 +262,11 @@ class SequenceValidate:
 
     def __call__(self, value: tuple|list, name: str|None = None) -> tuple|list:
         """Validates the entered value, expected to be a tuple of expected value/s"""
-        if not isinstance(value, (tuple, list)):
-            raise TypeError(f"Entered value ({name}) is expected to be a tuple or list!")
-
         if name is not None:
             str_validate()(name, "name")
+            TypeValidate((tuple, list))(value, name=name)
+        TypeValidate((tuple, list))(value)
+
         type_store = []
         if isinstance(self.expected[-1], EllipsisType):
             for item in self.expected:
@@ -222,7 +280,7 @@ class SequenceValidate:
 
         else:
             if len(self.expected) != len(value):
-                raise ValueError(f"Entered value ({name}) must have the same number of elements as the provided expected tuple!")
+                raise ItemCountError(f"Entered value ({name}) must have the same number of elements as the provided expected tuple!")
             for expected_type, actual_value in zip(self.expected, value):
                 TypeValidate(expected_type)(actual_value)
                 for func in self.callables:
