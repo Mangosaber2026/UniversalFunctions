@@ -17,6 +17,8 @@ class ErrorDedent:
     way it would be printed otherwise.
 
     >>> print(ErrorDedent(TypeError)("This is a TypeError!"))
+    TypeError
+    <BLANKLINE>
     This is a TypeError!
     """
     name: Final[Literal["ErrorDedent"]] = "ErrorDedent"
@@ -40,13 +42,19 @@ class ErrorDedent:
                 expected: str
                 received: {text}
                 """).strip())
-        return self.error_func(dedent(text).strip())
+        return self.error_func(dedent(f"""
+            {self.error_func.__name__}
+            
+            {text}
+            """).strip())
 
 def type_error() -> Callable:
     """
     This function returns a callable type error function.
 
     >>> print(type_error()("This is a TypeError!"))
+    TypeError
+    <BLANKLINE>
     This is a TypeError!
 
     :return: ErrorDedent function
@@ -58,6 +66,8 @@ def value_error() -> Callable:
     This function returns a callable value error function.
 
     >>> print(value_error()("This is a ValueError!"))
+    ValueError
+    <BLANKLINE>
     This is a ValueError!
 
     :return: ErrorDedent function
@@ -69,6 +79,8 @@ def item_count_error() -> Callable:
     This function returns a callable item count error function.
 
     >>> print(item_count_error()("This is an Item Count Error!"))
+    ItemCountError
+    <BLANKLINE>
     This is an Item Count Error!
 
     :return: ErrorDedent function
@@ -80,11 +92,26 @@ def constraint_error() -> Callable:
     This function returns a callable constraint error function.
 
     >>> print(constraint_error()("This is a Constraint Error!"))
+    ConstraintError
+    <BLANKLINE>
     This is a Constraint Error!
 
     :return: ErrorDedent function
     """
     return ErrorDedent(ConstraintError)
+
+def attribute_error() -> Callable:
+    """
+    This function returns a callable attribute error function.
+
+    >>> print(attribute_error()("This is an Attribute Error!"))
+    AttributeError
+    <BLANKLINE>
+    This is an Attribute Error!
+
+    :return: ErrorDedent function
+    """
+    return ErrorDedent(AttributeError)
 
 class ItemCountError(Exception):
     """

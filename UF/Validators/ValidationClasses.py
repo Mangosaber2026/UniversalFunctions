@@ -34,8 +34,6 @@ class TypeValidate:
             for item in expected:
                 if not isinstance(item, type):
                     raise type_error()(f"""
-                        TypeError
-                        
                         Validator: {self.name}
                         Entered value {item!r} is not a type object!
                         Expected: type object
@@ -50,8 +48,6 @@ class TypeValidate:
 
         else:
             raise type_error()(f"""
-                TypeError
-                
                 Validator: {self.name}
                 Parameter 'expected' MUST be a type object or a tuple of type objects!
                 Expected: type|tuple
@@ -64,8 +60,6 @@ class TypeValidate:
         """Validates the entered value, expected to be of expected type"""
         if name is not None and not isinstance(name, str):
             raise type_error()(f"""
-            TypeError
-            
             Validator: {self.name}
             Parameter 'name' MUST be a string object!
             Expected: str (name of value)
@@ -82,8 +76,6 @@ class TypeValidate:
 
                 if name is not None:
                     raise type_error()(f"""
-                        TypeError
-                        
                         Validator: {self.name}
                         Parameter {name!r} is not of expected type {expected_type!r}!
                         Expected: {expected_type}
@@ -93,7 +85,6 @@ class TypeValidate:
                             Type: {value_type}
                         """)
                 raise type_error()(f"""
-                    TypeError
                     Validator: {self.name}
                     Parameter value is not of expected type {expected_type!r}!
                     Expected: {expected_type}
@@ -107,8 +98,6 @@ class TypeValidate:
 
                 if name is not None:
                     raise type_error()(f"""
-                        TypeError
-                        
                         Validator: {self.name}
                         Parameter {name!r} is not of expected type {expected_type!r}!
                         Expected: {expected_type}
@@ -118,8 +107,6 @@ class TypeValidate:
                             Type: {value_type}
                         """)
                 raise type_error()(f"""
-                    TypeError
-                    
                     Validator: {self.name}
                     Parameter value is not of expected type {expected_type!r}!
                     Expected: {expected_type}
@@ -185,8 +172,6 @@ class Positive:
 
         if value <= 0:
             raise constraint_error()(f"""
-                ConstraintError
-                
                 Validator: {self.name}
                 Parameter value is expected to be greater than 0!
                 Expected: value > 0
@@ -216,8 +201,6 @@ class LessThan(RealValidationParent):
 
         if value >= self.expected:
             raise constraint_error()(f"""
-                ConstraintError
-                
                 Validator: {self.name}
                 Parameter value is expected to be less than {self.expected!r}!
                 Expected: {self.expected}
@@ -249,8 +232,6 @@ class LessOrEqual(RealValidationParent):
 
         if value > self.expected:
             raise constraint_error()(f"""
-                ConstraintError
-                
                 Validator: {self.name}
                 Parameter value is expected to be less than or equal to {self.expected!r}!
                 Expected: {self.expected}
@@ -281,8 +262,6 @@ class GreaterThan(RealValidationParent):
 
         if self.expected >= value:
             raise constraint_error()(f"""
-                ConstraintError
-                
                 Validator: {self.name}
                 Parameter value is expected to be greater than {self.expected!r}!
                 Expected: {self.expected}
@@ -314,8 +293,6 @@ class GreaterOrEqual(RealValidationParent):
 
         if self.expected > value:
             raise constraint_error()(f"""
-                ConstraintError
-                
                 Validator: {self.name}
                 Parameter value is expected to be greater than or equal to {self.expected!r}!
                 Expected: {self.expected}
@@ -346,8 +323,6 @@ class SequenceValidate:
             else:
                 if expected[-1] is not Ellipsis:
                     raise type_error()(f"""
-                        TypeError
-                        
                         Validator: {self.name}
                         The last item in 'expected' is expected to be an ellipsis type!
                         Expected: ellipsis type
@@ -389,8 +364,6 @@ class SequenceValidate:
         else:
             if len(self.expected) != len(value):
                 raise item_count_error()(f"""
-                    ItemCountError
-                    
                     Validator: {self.name}
                     Parameter value ({name}) must have the same number of elements as the provided expected tuple!
                     Expected number of items: {len(self.expected)}

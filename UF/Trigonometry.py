@@ -16,6 +16,10 @@ from .Validators import real_validate
 def sine(angle: Real) -> Real:
     """
     Calculates the sine of a given angle
+
+    >>> sin(0)
+    0
+
     :param angle: value required in degrees
     :return: sine value
     """
@@ -25,6 +29,10 @@ def sine(angle: Real) -> Real:
 def cosine(angle: Real) -> Real:
     """
     Calculates the cosine of a given angle
+
+    >>> cosine(0)
+    1
+
     :param angle: value required in degrees
     :return: cosine value
     """
@@ -34,6 +42,10 @@ def cosine(angle: Real) -> Real:
 def asine(value: Real) -> Real:
     """
     Calculates the asine of a given angle
+
+    >>> asine(0)
+    0
+
     :param value: real value
     :return: asine value
     """

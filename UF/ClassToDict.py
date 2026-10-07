@@ -17,6 +17,7 @@ def classes_to_dict(*classes: type) -> dict[str, Callable]:
     >>> result = classes_to_dict(RandomClass)
     >>> list(result)
     ['get_item']
+
     :param classes: Classes from which the callables are extracted
     :return: Dictionary of callable names and their objects
     """

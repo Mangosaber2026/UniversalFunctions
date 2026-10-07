@@ -23,8 +23,6 @@ def qtm_lt_validator(value: list[Any] | tuple[Any, ...], TYPE: Any, name: str) -
     origin = get_origin(TYPE)
     if origin not in (list, tuple):
         raise type_error()(f"""
-            TypeError
-            
             Validator: {func_name}
             Parameter TYPE must be a list/tuple of elements!
             Expected: type object
@@ -49,8 +47,6 @@ def qtm_constr_validator(value: Any, annotation, name: str) -> Any:
     func_name: Final[Literal["qtm_constr_validator"]] = "qtm_constr_validator"
     if get_origin(annotation) is not Annotated:
         raise type_error()(f"""
-            TypeError
-            
             Validator: {func_name}
             Parameter annotation is not an Annotated type!
             Expected: Annotated object
