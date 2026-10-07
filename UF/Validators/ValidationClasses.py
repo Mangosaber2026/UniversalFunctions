@@ -1,9 +1,18 @@
-from typing import Any
+"""
+This module contains validation classes which are expected to be used as callable objects.
+
+The classes themselves not only validate the given value against the expected type, but also
+validate the parameters. After the entered value has passed the validation, it is simply returned, though
+if it does not pass validation, an error is raised.
+"""
+
+from typing import Any, Final, Literal
 from numbers import Real
 from types import EllipsisType
 from itertools import cycle
 from collections.abc import Callable
-from .Errors import ErrorDedent, ItemCountError, ConstraintError, type_error
+from .Errors import type_error, constraint_error, item_count_error
+
 
 class TypeValidate:
     """
@@ -18,20 +27,22 @@ class TypeValidate:
     >>> TypeValidate((list, int))([1, "2"])
     [1, '2']
     """
+    name: Final[Literal["TypeValidate"]] = "TypeValidate"
     def __init__(self, expected: type | tuple[type, ...]) -> None:
         """Makes sure the entered value is a type object"""
-        self.name = "TypeValidate"
         if isinstance(expected, tuple):
             for item in expected:
                 if not isinstance(item, type):
                     raise type_error()(f"""
-                    {self.name}:
-                    Entered value {item!r} is not a type object!
-                    Expected: type object
-                    Received: 
-                    Item: {item}
-                    Type: {type(item).__name__}
-                    """)
+                        TypeError
+                        
+                        Validator: {self.name}
+                        Entered value {item!r} is not a type object!
+                        Expected: type object
+                        Received: 
+                            Item: {item}
+                            Type: {type(item).__name__}
+                        """)
             self.expected = expected
 
         elif isinstance(expected, type):
@@ -39,24 +50,28 @@ class TypeValidate:
 
         else:
             raise type_error()(f"""
-                {self.name}:
+                TypeError
+                
+                Validator: {self.name}
                 Parameter 'expected' MUST be a type object or a tuple of type objects!
                 Expected: type|tuple
                 Received: 
-                Given value for expected: {expected}
-                Type: {type(expected).__name__}
+                    Given value for expected: {expected}
+                    Type: {type(expected).__name__}
                 """)
 
     def __call__(self, value: Any, name: str | None = None) -> Any:
         """Validates the entered value, expected to be of expected type"""
         if name is not None and not isinstance(name, str):
             raise type_error()(f"""
-            {self.name}:
+            TypeError
+            
+            Validator: {self.name}
             Parameter 'name' MUST be a string object!
             Expected: str (name of value)
             Received: 
-            Name: {name}
-            Type: {type(name).__name__}
+                Name: {name}
+                Type: {type(name).__name__}
             """)
 
         if not isinstance(value, self.expected):
@@ -67,20 +82,24 @@ class TypeValidate:
 
                 if name is not None:
                     raise type_error()(f"""
-                        {self.name}:
+                        TypeError
+                        
+                        Validator: {self.name}
                         Parameter {name!r} is not of expected type {expected_type!r}!
                         Expected: {expected_type}
                         Received: 
-                        Name: {value}
-                        Type: {value_type}
+                            Name: {name}
+                            value: {value}
+                            Type: {value_type}
                         """)
                 raise type_error()(f"""
-                    {self.name}:
+                    TypeError
+                    Validator: {self.name}
                     Parameter value is not of expected type {expected_type!r}!
                     Expected: {expected_type}
                     Received:
-                    Value: {value}
-                    Type: {value_type}
+                        Value: {value}
+                        Type: {value_type}
                     """)
 
             elif type(self.expected) is tuple:
@@ -88,20 +107,25 @@ class TypeValidate:
 
                 if name is not None:
                     raise type_error()(f"""
-                        {self.name}:
+                        TypeError
+                        
+                        Validator: {self.name}
                         Parameter {name!r} is not of expected type {expected_type!r}!
                         Expected: {expected_type}
                         Received:
-                        Value: {value}
-                        Type: {value_type}
+                            Name: {name}
+                            Value: {value}
+                            Type: {value_type}
                         """)
                 raise type_error()(f"""
-                    {self.name}
+                    TypeError
+                    
+                    Validator: {self.name}
                     Parameter value is not of expected type {expected_type!r}!
                     Expected: {expected_type}
                     Received:
-                    Value: {value}
-                    Type: {value_type}
+                        Value: {value}
+                        Type: {value_type}
                     """)
         return value
 
@@ -138,7 +162,7 @@ class RealValidationParent:
     """
     def __init__(self, expected: Real) -> None:
         self._validator = real_validate()
-        self._validator(expected)
+        real_validate()(expected, name="expected")
         self.expected = expected
 
 class Positive:
@@ -148,14 +172,28 @@ class Positive:
     >>> Positive()(50)
     50
     """
+    name: Final[Literal["Positive"]] = "Positive"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be positive (above 0)"""
         if name is not None:
+            TypeValidate(str)(name, name="name")
             real_validate()(value, name)
+            value_name = name
         else:
-            real_validate()(value)
+            value_name = "value"
+            real_validate()(value, name=value_name)
+
         if value <= 0:
-            raise ConstraintError(f"Entered value is expected to be greater than 0!")
+            raise constraint_error()(f"""
+                ConstraintError
+                
+                Validator: {self.name}
+                Parameter value is expected to be greater than 0!
+                Expected: value > 0
+                Received:
+                    Name: {value_name}
+                    Value: {value}
+                """)
         return value
 
 class LessThan(RealValidationParent):
@@ -165,13 +203,28 @@ class LessThan(RealValidationParent):
     >>> LessThan(75)(10)
     10
     """
+    name: Final[Literal["LessThan"]] = "LessThan"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be less than expected value"""
-        self._validator(value)
         if name is not None:
-            str_validate()(name, "name")
+            str_validate()(name, name="name")
+            real_validate()(value, name=name)
+            value_name = name
+        else:
+            value_name = "value"
+            real_validate()(value, name=value_name)
+
         if value >= self.expected:
-            raise ConstraintError(f"Entered value ({name}) is expected to be less than {self.expected!r}!")
+            raise constraint_error()(f"""
+                ConstraintError
+                
+                Validator: {self.name}
+                Parameter value is expected to be less than {self.expected!r}!
+                Expected: {self.expected}
+                Received:
+                    Name: {value_name}
+                    Value: {value}
+                """)
         return value
 
 class LessOrEqual(RealValidationParent):
@@ -183,13 +236,28 @@ class LessOrEqual(RealValidationParent):
     >>> LessOrEqual(50)(50)
     50
     """
+    name: Final[Literal["LessOrEqual"]] = "LessOrEqual"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be less than or equal to expected value"""
-        self._validator(value)
         if name is not None:
             str_validate()(name, "name")
+            real_validate()(value, name=name)
+            value_name = name
+        else:
+            value_name = "value"
+            real_validate()(value, name=value_name)
+
         if value > self.expected:
-            raise ConstraintError(f"Entered value ({name}) is expected to be less than or equal to {self.expected!r}!")
+            raise constraint_error()(f"""
+                ConstraintError
+                
+                Validator: {self.name}
+                Parameter value is expected to be less than or equal to {self.expected!r}!
+                Expected: {self.expected}
+                Received:
+                    Name: {value_name}
+                    Value: {value}
+                """)
         return value
 
 
@@ -200,13 +268,28 @@ class GreaterThan(RealValidationParent):
     >>> GreaterThan(5)(10)
     10
     """
+    name: Final[Literal["GreaterThan"]] = "GreaterThan"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be greater than expected value"""
-        self._validator(value)
         if name is not None:
             str_validate()(name, "name")
+            real_validate()(value, name=name)
+            value_name = name
+        else:
+            value_name = "value"
+            real_validate()(value, name=value_name)
+
         if self.expected >= value:
-            raise ConstraintError(f"Entered value ({name}) is expected to be greater than {self.expected!r}!")
+            raise constraint_error()(f"""
+                ConstraintError
+                
+                Validator: {self.name}
+                Parameter value is expected to be greater than {self.expected!r}!
+                Expected: {self.expected}
+                Received:
+                    Name: {value_name}
+                    Value: {value}
+                """)
         return value
 
 class GreaterOrEqual(RealValidationParent):
@@ -218,13 +301,28 @@ class GreaterOrEqual(RealValidationParent):
     >>> GreaterOrEqual(5)(5)
     5
     """
+    name: Final[Literal["GreaterOrEqual"]] = "GreaterOrEqual"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be greater than or equal to expected value"""
-        self._validator(value)
         if name is not None:
             str_validate()(name, "name")
+            real_validate()(value, name=name)
+            value_name = name
+        else:
+            value_name = "value"
+            real_validate()(value, name=value_name)
+
         if self.expected > value:
-            raise ConstraintError(f"Entered value ({name}) is expected to be greater than or equal to {self.expected!r}!")
+            raise constraint_error()(f"""
+                ConstraintError
+                
+                Validator: {self.name}
+                Parameter value is expected to be greater than or equal to {self.expected!r}!
+                Expected: {self.expected}
+                Received:
+                    Name: {value_name}
+                    Value: {value}
+                """)
         return value
 
 class SequenceValidate:
@@ -239,6 +337,7 @@ class SequenceValidate:
     >>> validator([[1, 2], [3, 4]])
     [[1, 2], [3, 4]]
     """
+    name: Final[Literal["SequenceValidate"]] = "SequenceValidate"
     def __init__(self, *expected: type | EllipsisType, **kwargs) -> None:
         """Validates and sets the tuple to a variable"""
         for item in expected:
@@ -246,7 +345,16 @@ class SequenceValidate:
                 TypeValidate(type)(item)
             else:
                 if expected[-1] is not Ellipsis:
-                    raise TypeError(f"Entered value ({expected[-1]}) is expected to be an ellipsis type!")
+                    raise type_error()(f"""
+                        TypeError
+                        
+                        Validator: {self.name}
+                        The last item in 'expected' is expected to be an ellipsis type!
+                        Expected: ellipsis type
+                        Received:
+                            name: {type(expected[-1]).__name__}
+                            item: {expected[-1]}
+                        """)
 
         self.expected = expected
 
@@ -280,7 +388,17 @@ class SequenceValidate:
 
         else:
             if len(self.expected) != len(value):
-                raise ItemCountError(f"Entered value ({name}) must have the same number of elements as the provided expected tuple!")
+                raise item_count_error()(f"""
+                    ItemCountError
+                    
+                    Validator: {self.name}
+                    Parameter value ({name}) must have the same number of elements as the provided expected tuple!
+                    Expected number of items: {len(self.expected)}
+                    Received: 
+                        Name: {name}
+                        Value: {value}
+                        Number of items in value: {len(value)}
+                    """)
             for expected_type, actual_value in zip(self.expected, value):
                 TypeValidate(expected_type)(actual_value)
                 for func in self.callables:

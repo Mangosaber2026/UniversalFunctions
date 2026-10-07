@@ -10,13 +10,13 @@ from functools import wraps
 from .ValidationClasses import TypeValidate
 
 
-def qtm_func_validator(func: Callable, *args, **kwargs) -> bool:
+def qtm_func_validator(func: Callable, *args, **kwargs) -> Callable:
     """
     Takes a function and compares the entered value with the expected type
     :param func: given function
     :param args: arguments
     :param kwargs: keyword arguments
-    :return: True if the provided argument matches the expected type, raises an error if not
+    :return: given function if the provided argument matches the expected type, raises an error if not
     """
     TypeValidate(Callable)(func, name=func.__name__)
     sig = signature(func)
@@ -40,11 +40,11 @@ def qtm_func_validator(func: Callable, *args, **kwargs) -> bool:
         else:
             TypeValidate(type_)(value, name=name)
 
-    return True
+    return func
 
 def qtm_validation_decorator(func: Callable) -> Callable:
     """
-    DECORATOR!
+    QUANTUM DECORATOR!
 
     Decorates a function with the quantum function validator and returns the function
     :param func: provided function

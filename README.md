@@ -18,10 +18,12 @@ The package requires Python 3.14 or later.
 
 UniversalFunctions is imported through the UF Python package:
 
+```python
 from UF.Validators import TypeValidate
 from numbers import Real
 
 TypeValidate(Real)(56)
+```
 
 The distribution name is UniversalFunctions, while the Python import package is UF.
 
@@ -39,15 +41,24 @@ Provides runtime validation utilities and validation classes for enforcing types
 
 #### Notable components include:
 
-* ``TypeValidate``
-* ``TupleValidate``
-* ``LessThan``
-* ``LessOrEqual``
-* ``GreaterOrEqual``
-* ``Positive``
-* ``real_validate``
-* ``str_validate``
+* ``TypeValidate`` -> class for validating an object against an expected type
+* ``SequenceValidate`` -> class used to validate a sequence of objects
+* ``LessThan`` -> class to validate a real number, constraint: value < expected
+* ``qtm_validation_decorator`` -> when applied to a function, the decorator takes the provided parameter values and validates them against the expected type
+* ``ErrorDedent``
 * Callable validation utilities
+
+This package inside UF contains numerous validators designed to validate all sorts of values and types, 
+including some sophisticated ones like SequenceValidate which allows users to enter extra restrictions to the items in a given sequence.
+
+There are 2 extra errors which are provided: 
+* ``ItemCountError``
+* ``ConstraintError``
+
+ItemCountError was created since Python does not have an error for a situation where the values and types 
+might be correct, though the number of items is not.
+
+ConstraintError provides users to express that the type of a value might be correct, though it fails to pass a specific constraint.
 
 The validation system also contains the Quantum Turtle Mechanics (QTM) validation infrastructure used for more structured runtime validation.
 
@@ -57,9 +68,8 @@ UniversalFunctions provides reusable decorator infrastructure, including decorat
 
 #### Notable components include:
 
-* ``class_decorator``
-* ``deco_superposition``
-* ``cls_deco_superposition``
+* ``deco_superposition`` -> applies an arbitrary number of decorators to a function
+* ``cls_deco_superposition`` -> applies an arbitrary number of decorators to every function in a class, except for protected ones (names starting with "_")
 * Quantum Turtle Mechanics validation decorators
 
 ### Helper Functions
@@ -95,16 +105,6 @@ These names describe architectural concepts within the project's validation and 
 Python 3.14 or later
 
 UniversalFunctions is designed for modern Python and makes use of contemporary Python typing and language features.
-
-## Development
-
-Clone the repository and install it in editable mode:
-
-git clone https://github.com/Mangosaber2026/UniversalFunctions.git
-cd UniversalFunctions
-pip install -e .
-
-Editable installation allows changes to the source code to be reflected immediately without reinstalling the package.
 
 ## License
 

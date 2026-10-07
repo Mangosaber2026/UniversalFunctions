@@ -3,7 +3,7 @@ This module contains an extremely important function: get_num, which takes a num
 """
 
 from time import sleep as rest
-from typing import overload, Literal
+from typing import overload, Literal, Final
 from numbers import Real
 from .Validators import (
     LessThan,
@@ -11,7 +11,9 @@ from .Validators import (
     real_validate,
     TypeValidate,
     GreaterOrEqual,
-    LessOrEqual
+    LessOrEqual,
+    type_error,
+    GreaterThan,
 )
 
 
@@ -24,7 +26,11 @@ def get_num(TYPE: int_type, entry: str, **options) -> int: ...
 @overload
 def get_num(TYPE: float_type, entry: str, **options) -> float: ...
 
-def get_num(TYPE: float_type|int_type, entry: str, **options) -> Real:
+def get_num(
+        TYPE: float_type|int_type,
+        entry: str,
+        **options
+) -> Real:
     """
     Gets a real numerical value from the user
 
@@ -33,37 +39,56 @@ def get_num(TYPE: float_type|int_type, entry: str, **options) -> Real:
     :param options: MAX, MIN, store
     :return: float or int
     """
+    func_name: Final[Literal["get_num"]] = "get_num"
+    type_obj_name: Final[Literal["TYPE"]] = "TYPE"
+
+    store_var: Final[Literal["store"]] = "store"
+    store_value = options[store_var]
+
+    min_var: Final[Literal["MIN"]] = "MIN"
+    min_value = options[min_var]
+
+    max_var: Final[Literal["MAX"]] = "MAX"
+    max_value = options[max_var]
+
     if TYPE not in (int, float):
-        raise TypeError("TYPE must be type float or int")
+        raise type_error()(f"""
+            TypeError
+            
+            Function: {func_name}
+            Parameter {type_obj_name} must be type float or int!
+            Expected: int or float object
+            Received:
+                Name: {type_obj_name}
+                Value: {TYPE}
+            """)
 
     str_validate()(entry, name="entry")
 
-    for item in ("MAX", "MIN"):
-        if item in options:
-            real_validate()(options[item], name=item)
+    real_validate()(max_value, name=max_var)
+    real_validate()(min_value, name=min_var)
 
-    if "MIN" in options and "MAX" in options:
-        LessThan(options["MAX"])(options["MIN"])
+    if min_var in options and max_var in options:
+        LessThan(max_value)(min_value, name=min_var)
 
-    if "store" in options:
-        TypeValidate((Real, type(None)))(options["store"], name="store")
+    if store_var in options:
+        TypeValidate((Real, type(None)))(store_value, name=store_var)
 
     if (
-        "store" in options
-        and "MIN" in options
-        and "MAX" in options
-        and options["store"] is not None
-        and (options["MIN"] > options["store"] or options["MAX"] < options["store"])
+        store_var in options
+        and min_var in options
+        and max_var in options
+        and store_value is not None
     ):
-        raise ValueError("Stored value must be between MIN and MAX!")
+        GreaterThan(min_value)(store_value, name=store_var)
 
     while True:
         try:
-            if "store" in options:
+            if store_var in options:
                 reserve: str = input(entry)
                 if reserve == "ans":
-                    if isinstance(options["store"], Real):
-                        value: Real = options["store"]
+                    if isinstance(store_value, Real):
+                        value: Real = store_value
                     else:
                         print("\nThere is no value stored yet!")
                         continue
@@ -73,17 +98,17 @@ def get_num(TYPE: float_type|int_type, entry: str, **options) -> Real:
                 value: Real = TYPE(input(entry))
             value_name: Literal["value"] = "value"
 
-            if "MIN" in options and "MAX" in options:
-                GreaterOrEqual(options["MIN"])(value, name=value_name)
-                LessOrEqual(options["MAX"])(value, name=value_name)
+            if min_var in options and max_var in options:
+                GreaterOrEqual(min_value)(value, name=value_name)
+                LessOrEqual(max_value)(value, name=value_name)
 
-            elif "MIN" in options:
-                GreaterOrEqual(options["MIN"])(value, name=value_name)
+            elif min_var in options:
+                GreaterOrEqual(min_value)(value, name=value_name)
 
-            elif "MAX" in options:
-                LessOrEqual(options["MAX"])(value, name=value_name)
+            elif max_var in options:
+                LessOrEqual(max_value)(value, name=value_name)
 
-            elif "store" in options:
+            elif store_var in options:
                 options["store"] = value
             return value
         except ValueError as error:

@@ -15,6 +15,15 @@ Abbreviations:
 All functions with qtm belong to the Quantum Dimension whereas all functions with ctm belong to the Classical Dimension
 """
 
+from .Errors import (
+    ErrorDedent,
+    type_error,
+    value_error,
+    item_count_error,
+    constraint_error,
+    ItemCountError,
+    ConstraintError,
+)
 from .QuantumFuncValidators import qtm_validation_decorator, qtm_func_validator
 from .QuantumValidators import qtm_lt_validator, qtm_constr_validator
 from .ValidationClasses import (
@@ -36,10 +45,20 @@ from . import QuantumValidators
 from . import ValidationClasses
 
 __all__ = [
+    "ErrorDedent",
+    "type_error",
+    "value_error",
+    "item_count_error",
+    "constraint_error",
+    "ItemCountError",
+    "ConstraintError",
+
     "qtm_validation_decorator",
     "qtm_func_validator",
+
     "qtm_lt_validator",
     "qtm_constr_validator",
+
     "TypeValidate",
     "int_validate",
     "str_validate",

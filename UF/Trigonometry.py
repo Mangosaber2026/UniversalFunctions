@@ -1,3 +1,7 @@
+"""
+This module contains a collection of trigonometric functions to be used with degrees.
+"""
+
 from math import (
     radians,
     degrees,
