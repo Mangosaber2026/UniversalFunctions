@@ -56,6 +56,7 @@ __all__ = [
     "value_error",
     "item_count_error",
     "constraint_error",
+    "attribute_error",
     "ItemCountError",
     "ConstraintError",
 

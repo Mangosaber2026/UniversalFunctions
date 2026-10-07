@@ -21,6 +21,7 @@ from .Errors import (
     value_error,
     item_count_error,
     constraint_error,
+    attribute_error,
     ItemCountError,
     ConstraintError,
 )
@@ -50,6 +51,7 @@ __all__ = [
     "value_error",
     "item_count_error",
     "constraint_error",
+    "attribute_error",
     "ItemCountError",
     "ConstraintError",
 
