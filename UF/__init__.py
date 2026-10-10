@@ -77,6 +77,7 @@ __all__ = [
     "GreaterOrEqual",
     "SequenceValidate",
     "RealValidationParent",
+    "ComboValidate",
 
     "ClassToDict",
     "DecoratorArchive",

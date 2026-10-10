@@ -377,3 +377,35 @@ class SequenceValidate:
                 for func in self.callables:
                     func(actual_value)
         return value
+
+class ComboValidate:
+    """
+    This class takes a value (and name if provided) and uses the given validators to validate it.
+    """
+    def __init__(self, value: Any, name: str | None = None) -> None:
+        """
+        This initiates the validator class with a given value and if desired, it's name.
+        :param value: any object of any type.
+        :param name: the name of the value.
+        """
+        if name is not None:
+            str_validate()(name, name="name")
+
+        self.value = value
+        self.name = name
+
+    def __call__(self, *validation_funcs: Callable) -> Any:
+        """
+        This executes all the validators given for validation_funcs by using the provided value and it's name if given.
+        :param validation_funcs: validator functions.
+        :return: validated value.
+        """
+        SequenceValidate(Callable, ...)(validation_funcs, name="validation_funcs")
+        for validator in validation_funcs:
+            if self.name is not None:
+                validator(self.value, name=self.name)
+
+            else:
+                validator(self.value)
+
+        return self.value

@@ -39,6 +39,7 @@ from .ValidationClasses import (
     GreaterOrEqual,
     SequenceValidate,
     RealValidationParent,
+    ComboValidate,
 )
 
 from . import QuantumFuncValidators
@@ -72,6 +73,7 @@ __all__ = [
     "GreaterOrEqual",
     "SequenceValidate",
     "RealValidationParent",
+    "ComboValidate",
 
     "QuantumFuncValidators",
     "QuantumValidators",
