@@ -41,20 +41,12 @@ def get_num(
     """
     func_name: Final[Literal["get_num"]] = "get_num"
     type_obj_name: Final[Literal["TYPE"]] = "TYPE"
+    type_item: Final = TYPE
 
-    store_var: Final[Literal["store"]] = "store"
-    store_value = options[store_var]
-
-    min_var: Final[Literal["MIN"]] = "MIN"
-    min_value = options[min_var]
-
-    max_var: Final[Literal["MAX"]] = "MAX"
-    max_value = options[max_var]
-
-    if TYPE not in (int, float):
+    if type_item not in (int, float):
         raise type_error()(f"""
             TypeError
-            
+
             Function: {func_name}
             Parameter {type_obj_name} must be type float or int!
             Expected: int or float object
@@ -65,14 +57,23 @@ def get_num(
 
     str_validate()(entry, name="entry")
 
-    real_validate()(max_value, name=max_var)
-    real_validate()(min_value, name=min_var)
+    store_var: Final[Literal["store"]] = "store"
+    if store_var in options:
+        store_value = options[store_var]
+        TypeValidate((Real, type(None)))(store_value, name=store_var)
+
+    min_var: Final[Literal["MIN"]] = "MIN"
+    if min_var in options:
+        min_value = options[min_var]
+        real_validate()(min_value, name=min_var)
+
+    max_var: Final[Literal["MAX"]] = "MAX"
+    if max_var in options:
+        max_value = options[max_var]
+        real_validate()(max_value, name=max_var)
 
     if min_var in options and max_var in options:
         LessThan(max_value)(min_value, name=min_var)
-
-    if store_var in options:
-        TypeValidate((Real, type(None)))(store_value, name=store_var)
 
     if (
         store_var in options
