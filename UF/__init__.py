@@ -19,15 +19,23 @@ not be changed!
 """
 
 from .ClassToDict import classes_to_dict
+
 from .DecoratorArchive import deco_superposition, cls_deco_superposition
+
 from .GetVariable import get_num
+
 from .HelperFunctions import (
     helper,
     HelperFunctions,
     range_f,
 )
+
+from .PercentClass import Percent
+
 from .StringCheck import get_str
+
 from .Trigonometry import sine, cosine, asine
+
 from .Validators import *
 
 from . import ClassToDict
@@ -49,6 +57,7 @@ __all__ = [
     "cosine",
     "asine",
     "range_f",
+    "Percent",
     "get_str",
 
     "ErrorDedent",
