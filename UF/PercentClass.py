@@ -43,6 +43,15 @@ def pct20(value: Real) -> Real:
     vls.real_validate()(value, name="value")
     return Percent(20)(value)
 
+def pct25(value: Real) -> Real:
+    """
+    Calculates 25% percent of the given value
+    :param value: real number
+    :return: 25% of the given value
+    """
+    vls.real_validate()(value, name="value")
+    return Percent(25)(value)
+
 def pct30(value: Real) -> Real:
     """
     Calculates 30% percent of the given value
