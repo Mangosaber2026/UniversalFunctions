@@ -97,6 +97,15 @@ def pct70(value: Real) -> Real:
     vls.real_validate()(value, name="value")
     return Percent(70)(value)
 
+def pct75(value: Real) -> Real:
+    """
+    Calculates 75% percent of the given value
+    :param value: real number
+    :return: 75% of the given value
+    """
+    vls.real_validate()(value, name="value")
+    return Percent(75)(value)
+
 def pct80(value: Real) -> Real:
     """
     Calculates 80% percent of the given value
