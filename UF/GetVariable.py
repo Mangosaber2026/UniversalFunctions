@@ -5,16 +5,7 @@ This module contains an extremely important function: get_num, which takes a num
 from time import sleep as rest
 from typing import overload, Literal, Final
 from numbers import Real
-from .Validators import (
-    LessThan,
-    str_validate,
-    real_validate,
-    TypeValidate,
-    GreaterOrEqual,
-    LessOrEqual,
-    type_error,
-    GreaterThan,
-)
+from . import Validators as vls
 
 
 type int_type = type[int]
@@ -44,7 +35,7 @@ def get_num(
     type_item: Final = TYPE
 
     if type_item not in (int, float):
-        raise type_error()(f"""
+        raise vls.type_error()(f"""
             TypeError
 
             Function: {func_name}
@@ -55,25 +46,25 @@ def get_num(
                 Value: {TYPE}
             """)
 
-    str_validate()(entry, name="entry")
+    vls.str_validate()(entry, name="entry")
 
     store_var: Final[Literal["store"]] = "store"
     if store_var in options:
         store_value = options[store_var]
-        TypeValidate((Real, type(None)))(store_value, name=store_var)
+        vls.TypeValidate((Real, type(None)))(store_value, name=store_var)
 
     min_var: Final[Literal["MIN"]] = "MIN"
     if min_var in options:
         min_value = options[min_var]
-        real_validate()(min_value, name=min_var)
+        vls.real_validate()(min_value, name=min_var)
 
     max_var: Final[Literal["MAX"]] = "MAX"
     if max_var in options:
         max_value = options[max_var]
-        real_validate()(max_value, name=max_var)
+        vls.real_validate()(max_value, name=max_var)
 
     if min_var in options and max_var in options:
-        LessThan(max_value)(min_value, name=min_var)
+        vls.LessThan(max_value)(min_value, name=min_var)
 
     if (
         store_var in options
@@ -81,7 +72,7 @@ def get_num(
         and max_var in options
         and store_value is not None
     ):
-        GreaterThan(min_value)(store_value, name=store_var)
+        vls.GreaterThan(min_value)(store_value, name=store_var)
 
     while True:
         try:
@@ -100,14 +91,14 @@ def get_num(
             value_name: Literal["value"] = "value"
 
             if min_var in options and max_var in options:
-                GreaterOrEqual(min_value)(value, name=value_name)
-                LessOrEqual(max_value)(value, name=value_name)
+                vls.GreaterOrEqual(min_value)(value, name=value_name)
+                vls.LessOrEqual(max_value)(value, name=value_name)
 
             elif min_var in options:
-                GreaterOrEqual(min_value)(value, name=value_name)
+                vls.GreaterOrEqual(min_value)(value, name=value_name)
 
             elif max_var in options:
-                LessOrEqual(max_value)(value, name=value_name)
+                vls.LessOrEqual(max_value)(value, name=value_name)
 
             elif store_var in options:
                 options["store"] = value

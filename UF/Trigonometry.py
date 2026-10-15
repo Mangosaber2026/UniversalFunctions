@@ -10,7 +10,7 @@ from math import (
     asin,
 )
 from numbers import Real
-from .Validators import real_validate
+from . import Validators as vls
 
 
 def sine(angle: Real) -> Real:
@@ -23,7 +23,7 @@ def sine(angle: Real) -> Real:
     :param angle: value required in degrees
     :return: sine value
     """
-    real_validate()(angle, name="angle")
+    vls.real_validate()(angle, name="angle")
     return sin(radians(angle))
 
 def cosine(angle: Real) -> Real:
@@ -36,7 +36,7 @@ def cosine(angle: Real) -> Real:
     :param angle: value required in degrees
     :return: cosine value
     """
-    real_validate()(angle, name="angle")
+    vls.real_validate()(angle, name="angle")
     return cos(radians(angle))
 
 def asine(value: Real) -> Real:
@@ -49,5 +49,5 @@ def asine(value: Real) -> Real:
     :param value: real value
     :return: asine value
     """
-    real_validate()(value, name="value")
+    vls.real_validate()(value, name="value")
     return degrees(asin(value))

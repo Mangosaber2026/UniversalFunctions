@@ -3,7 +3,7 @@ This module contains decorators which take any number of decorators and apply th
 """
 
 from collections.abc import Callable
-from .Validators import SequenceValidate
+from . import Validators as vls
 
 
 def cls_deco_superposition(*decorators: Callable) -> Callable:
@@ -12,7 +12,7 @@ def cls_deco_superposition(*decorators: Callable) -> Callable:
     :param decorators: provided decorator functions
     :return: a class decorator that transforms the class (& it's functions) and returns it
     """
-    SequenceValidate(Callable, ...)(decorators, name="decorators")
+    vls.SequenceValidate(Callable, ...)(decorators, name="decorators")
     deco_composer = deco_superposition(*decorators)
 
     def inner(cls):
@@ -28,7 +28,7 @@ def deco_superposition(*decorators: Callable) -> Callable:
     :param decorators: decorator functions
     :return: supplied function
     """
-    SequenceValidate(Callable, ...)(decorators, name="decorators")
+    vls.SequenceValidate(Callable, ...)(decorators, name="decorators")
     def inner_deco(func):
         for decorator in reversed(decorators):
             func = decorator(func)

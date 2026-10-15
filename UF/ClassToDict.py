@@ -3,7 +3,7 @@ This module contains a function that takes all functions in a class and make a d
 """
 
 from collections.abc import Callable
-from .Validators import SequenceValidate
+from . import Validators as vls
 
 
 def classes_to_dict(*classes: type) -> dict[str, Callable]:
@@ -21,7 +21,7 @@ def classes_to_dict(*classes: type) -> dict[str, Callable]:
     :param classes: Classes from which the callables are extracted
     :return: Dictionary of callable names and their objects
     """
-    SequenceValidate(type, ...)(classes, name="classes")
+    vls.SequenceValidate(type, ...)(classes, name="classes")
     dictionary = {}
     for cls in classes:
         dictionary.update({

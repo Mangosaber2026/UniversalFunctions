@@ -3,7 +3,7 @@ This module contains an extremely important function: get_str, which takes a str
 """
 
 from time import sleep as rest
-from .Validators import TypeValidate, str_validate
+from . import Validators as vls
 
 
 def get_str(str_input: str, *check_values) -> str:
@@ -12,11 +12,11 @@ def get_str(str_input: str, *check_values) -> str:
     :param str_input: input string
     :param check_values: allowed string values (all lowercase), options: str, dict, list, tuple
     """
-    str_validate()(str_input, name="str_input")
+    vls.str_validate()(str_input, name="str_input")
     while True:
         value: str = input(str_input).lower()
         for check in check_values:
-            TypeValidate((str, dict, list, tuple))(check, name="check")
+            vls.TypeValidate((str, dict, list, tuple))(check, name="check")
             if isinstance(check, str) and check == value:
                 return value
             elif isinstance(check, (dict, list, tuple)) and value in check:

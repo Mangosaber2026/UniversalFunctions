@@ -9,14 +9,14 @@ sine -> calculates sine value
 range_f -> acts like the conventional range function except for that this takes rational inputs
 """
 
-from typing import Any, Annotated
+from typing import Any
 from collections.abc import Generator
 from math import sqrt
 from .GetVariable import get_num
 from .DecoratorArchive import cls_deco_superposition
 from .ClassToDict import classes_to_dict
-from .Validators import qtm_validation_decorator, LessThan, Positive
 from numbers import Real
+from . import Validators as vls
 
 
 @cls_deco_superposition(staticmethod)
@@ -57,12 +57,15 @@ class HelperFunctions:
         row_count: int = get_num(int, "Enter row pairs count(ℕ≥1): ", MIN=1)
         return row_count
 
-    @qtm_validation_decorator
-    def diameter_sq(length: Annotated[Real, Positive()]) -> tuple[Real,Real]:
+    def diameter_sq(length: Real) -> tuple[Real,Real]:
         """
         Calculates the diameter of a square with given length
         :return: diameter, diameter/2
         """
+        vls.ComboValidate(length, name="length")(
+            vls.real_validate(),
+            vls.Positive()
+        )
 
         diameter: float = length*sqrt(2); d_half: Real = diameter / 2
         return diameter, d_half
@@ -86,11 +89,10 @@ class HelperFunctions:
 
 helper = HelperFunctions
 
-@qtm_validation_decorator
 def range_f(
         start: Real,
         stop: Real,
-        step: Annotated[Real, Positive()]
+        step: Real
 ) -> Generator[Real,Any,None]:
     """
     Lets the user choose Real inputs for start, stop and step
@@ -98,7 +100,13 @@ def range_f(
     :param stop: stop value; Real number >= start
     :param step: step value; Real number > 0
     """
-    LessThan(stop)(start)
+    items = (start, stop, step)
+
+    for item in items:
+        vls.real_validate()(item)
+
+    vls.Positive()(step, name="step")
+    vls.LessThan(stop)(start)
 
     while start < stop:
         yield start
