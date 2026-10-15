@@ -30,7 +30,18 @@ from .HelperFunctions import (
     range_f,
 )
 
-from .PercentClass import Percent
+from .PercentClass import (
+    Percent,
+    pct10,
+    pct20,
+    pct30,
+    pct40,
+    pct50,
+    pct60,
+    pct70,
+    pct80,
+    pct90,
+)
 
 from .StringCheck import get_str
 
@@ -58,6 +69,15 @@ __all__ = [
     "asine",
     "range_f",
     "Percent",
+    "pct10",
+    "pct20",
+    "pct30",
+    "pct40",
+    "pct50",
+    "pct60",
+    "pct70",
+    "pct80",
+    "pct90",
     "get_str",
 
     "ErrorDedent",
