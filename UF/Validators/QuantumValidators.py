@@ -4,7 +4,7 @@ This module contains type validators for list and tuple which belong to the QTM 
 
 from typing import Annotated, Any, Final, get_args, get_origin
 
-from .Errors import type_error
+from .errors import type_error
 from .ValidationClasses import SequenceValidate, TypeValidate
 
 

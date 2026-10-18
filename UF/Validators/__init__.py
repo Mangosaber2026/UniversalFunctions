@@ -15,7 +15,7 @@ Abbreviations:
 All functions with qtm belong to the Quantum Dimension whereas all functions with ctm belong to the Classical Dimension
 """
 
-from .Errors import (
+from .errors import (
     ConstraintError,
     ErrorDedent,
     ItemCountError,

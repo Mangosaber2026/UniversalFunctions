@@ -12,7 +12,7 @@ from numbers import Real
 from types import EllipsisType
 from typing import Any, Final
 
-from .Errors import constraint_error, item_count_error, type_error
+from .errors import constraint_error, item_count_error, type_error
 
 
 class TypeValidate:
