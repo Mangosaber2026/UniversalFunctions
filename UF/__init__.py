@@ -45,7 +45,7 @@ from .percent_class import (
 )
 from .get_string import get_str
 
-from .Trigonometry import asine, cosine, sine
+from .trigonometry import asine, cosine, sine
 
 from .Validators import *
 
