@@ -8,7 +8,7 @@ from inspect import signature
 from typing import Annotated, get_origin
 
 from .quantum_validators import qtm_constr_validator, qtm_lt_validator
-from .ValidationClasses import TypeValidate
+from .validation_classes import TypeValidate
 
 
 def qtm_func_validator(func: Callable, *args, **kwargs) -> Callable:

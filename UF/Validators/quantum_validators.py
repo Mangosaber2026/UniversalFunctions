@@ -5,7 +5,7 @@ This module contains type validators for list and tuple which belong to the QTM 
 from typing import Annotated, Any, Final, get_args, get_origin
 
 from .errors import type_error
-from .ValidationClasses import SequenceValidate, TypeValidate
+from .validation_classes import SequenceValidate, TypeValidate
 
 
 def qtm_lt_validator(value: list[Any] | tuple[Any, ...], TYPE: Any, name: str) -> tuple | list:
