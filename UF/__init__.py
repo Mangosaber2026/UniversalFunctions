@@ -29,7 +29,7 @@ from .helper_functions import (
     helper,
     range_f,
 )
-from .PercentClass import (
+from .percent_class import (
     Percent,
     pct10,
     pct20,
