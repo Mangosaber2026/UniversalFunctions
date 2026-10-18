@@ -19,7 +19,7 @@ not be changed!
 """
 
 from .classes_to_dictionary import classes_to_dict
-from .DecoratorArchive import cls_deco_superposition, deco_superposition
+from .decorator_archive import cls_deco_superposition, deco_superposition
 from .GetVariable import get_num
 from .HelperFunctions import (
     HelperFunctions,
