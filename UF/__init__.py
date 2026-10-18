@@ -24,7 +24,7 @@ from .decorator_archive import cls_deco_superposition, deco_superposition
 
 from .get_variable import get_num
 
-from .HelperFunctions import (
+from .helper_functions import (
     HelperFunctions,
     helper,
     range_f,
