@@ -9,14 +9,15 @@ sine -> calculates sine value
 range_f -> acts like the conventional range function except for that this takes rational inputs
 """
 
-from typing import Any
 from collections.abc import Generator
 from math import sqrt
-from .GetVariable import get_num
-from .DecoratorArchive import cls_deco_superposition
-from .ClassToDict import classes_to_dict
 from numbers import Real
+from typing import Any
+
 from . import Validators as vls
+from .classes_to_dictionary import classes_to_dict
+from .DecoratorArchive import cls_deco_superposition
+from .GetVariable import get_num
 
 
 @cls_deco_superposition(staticmethod)
@@ -93,7 +94,7 @@ def range_f(
         start: Real,
         stop: Real,
         step: Real
-) -> Generator[Real,Any,None]:
+) -> Generator[Real, Any]:
     """
     Lets the user choose Real inputs for start, stop and step
     :param start: start value; Real number

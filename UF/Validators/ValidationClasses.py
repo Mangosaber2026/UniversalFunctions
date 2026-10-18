@@ -6,12 +6,13 @@ validate the parameters. After the entered value has passed the validation, it i
 if it does not pass validation, an error is raised.
 """
 
-from typing import Any, Final, Literal
+from collections.abc import Callable
+from itertools import cycle
 from numbers import Real
 from types import EllipsisType
-from itertools import cycle
-from collections.abc import Callable
-from .Errors import type_error, constraint_error, item_count_error
+from typing import Any, Final
+
+from .Errors import constraint_error, item_count_error, type_error
 
 
 class TypeValidate:
@@ -27,7 +28,7 @@ class TypeValidate:
     >>> TypeValidate((list, int))([1, "2"])
     [1, '2']
     """
-    name: Final[Literal["TypeValidate"]] = "TypeValidate"
+    name: Final = "TypeValidate"
     def __init__(self, expected: type | tuple[type, ...]) -> None:
         """Makes sure the entered value is a type object"""
         if isinstance(expected, tuple):
@@ -159,7 +160,7 @@ class Positive:
     >>> Positive()(50)
     50
     """
-    name: Final[Literal["Positive"]] = "Positive"
+    name: Final = "Positive"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be positive (above 0)"""
         if name is not None:
@@ -188,7 +189,7 @@ class LessThan(RealValidationParent):
     >>> LessThan(75)(10)
     10
     """
-    name: Final[Literal["LessThan"]] = "LessThan"
+    name: Final = "LessThan"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be less than expected value"""
         if name is not None:
@@ -219,7 +220,7 @@ class LessOrEqual(RealValidationParent):
     >>> LessOrEqual(50)(50)
     50
     """
-    name: Final[Literal["LessOrEqual"]] = "LessOrEqual"
+    name: Final = "LessOrEqual"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be less than or equal to expected value"""
         if name is not None:
@@ -249,7 +250,7 @@ class GreaterThan(RealValidationParent):
     >>> GreaterThan(5)(10)
     10
     """
-    name: Final[Literal["GreaterThan"]] = "GreaterThan"
+    name: Final = "GreaterThan"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be greater than expected value"""
         if name is not None:
@@ -280,7 +281,7 @@ class GreaterOrEqual(RealValidationParent):
     >>> GreaterOrEqual(5)(5)
     5
     """
-    name: Final[Literal["GreaterOrEqual"]] = "GreaterOrEqual"
+    name: Final = "GreaterOrEqual"
     def __call__(self, value: Real, name: str|None = None) -> Real:
         """Validates the entered value, expected to be greater than or equal to expected value"""
         if name is not None:
@@ -314,7 +315,7 @@ class SequenceValidate:
     >>> validator([[1, 2], [3, 4]])
     [[1, 2], [3, 4]]
     """
-    name: Final[Literal["SequenceValidate"]] = "SequenceValidate"
+    name: Final = "SequenceValidate"
     def __init__(self, *expected: type | EllipsisType, **kwargs) -> None:
         """Validates and sets the tuple to a variable"""
         for item in expected:

@@ -3,6 +3,7 @@ This module contains a function that takes all functions in a class and make a d
 """
 
 from collections.abc import Callable
+
 from . import Validators as vls
 
 

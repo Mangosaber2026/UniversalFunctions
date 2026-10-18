@@ -2,11 +2,11 @@
 This module contains an extremely important function: get_num, which takes a numerical value from the user.
 """
 
-from time import sleep as rest
-from typing import overload, Literal, Final
 from numbers import Real
-from . import Validators as vls
+from time import sleep as rest
+from typing import Final, Literal, overload
 
+from . import Validators as vls
 
 type int_type = type[int]
 type float_type = type[float]
@@ -30,8 +30,8 @@ def get_num(
     :param options: MAX, MIN, store
     :return: float or int
     """
-    func_name: Final[Literal["get_num"]] = "get_num"
-    type_obj_name: Final[Literal["TYPE"]] = "TYPE"
+    func_name: Final = "get_num"
+    type_obj_name: Final = "TYPE"
     type_item: Final = TYPE
 
     if type_item not in (int, float):
@@ -48,17 +48,17 @@ def get_num(
 
     vls.str_validate()(entry, name="entry")
 
-    store_var: Final[Literal["store"]] = "store"
+    store_var: Final = "store"
     if store_var in options:
         store_value = options[store_var]
         vls.TypeValidate((Real, type(None)))(store_value, name=store_var)
 
-    min_var: Final[Literal["MIN"]] = "MIN"
+    min_var: Final = "MIN"
     if min_var in options:
         min_value = options[min_var]
         vls.real_validate()(min_value, name=min_var)
 
-    max_var: Final[Literal["MAX"]] = "MAX"
+    max_var: Final = "MAX"
     if max_var in options:
         max_value = options[max_var]
         vls.real_validate()(max_value, name=max_var)

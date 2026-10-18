@@ -18,18 +18,14 @@ functions. These are still extremely important to the rest of the main package a
 not be changed!
 """
 
-from .ClassToDict import classes_to_dict
-
-from .DecoratorArchive import deco_superposition, cls_deco_superposition
-
+from .classes_to_dictionary import classes_to_dict
+from .DecoratorArchive import cls_deco_superposition, deco_superposition
 from .GetVariable import get_num
-
 from .HelperFunctions import (
-    helper,
     HelperFunctions,
+    helper,
     range_f,
 )
-
 from .PercentClass import (
     Percent,
     pct10,
@@ -44,20 +40,9 @@ from .PercentClass import (
     pct80,
     pct90,
 )
-
 from .StringCheck import get_str
-
-from .Trigonometry import sine, cosine, asine
-
+from .Trigonometry import asine, cosine, sine
 from .Validators import *
-
-from . import ClassToDict
-from . import DecoratorArchive
-from . import GetVariable
-from . import HelperFunctions as HelperFunctionsModule
-from . import StringCheck
-from . import Trigonometry
-from . import Validators
 
 __all__ = [
     "classes_to_dict",
@@ -111,12 +96,4 @@ __all__ = [
     "SequenceValidate",
     "RealValidationParent",
     "ComboValidate",
-
-    "ClassToDict",
-    "DecoratorArchive",
-    "GetVariable",
-    "HelperFunctionsModule",
-    "StringCheck",
-    "Trigonometry",
-    "Validators",
 ]

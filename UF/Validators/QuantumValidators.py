@@ -2,10 +2,11 @@
 This module contains type validators for list and tuple which belong to the QTM Dimension.
 """
 
-from typing import Any, get_args, get_origin, Annotated
-from .ValidationClasses import TypeValidate, SequenceValidate
+from typing import Annotated, Any, Final, get_args, get_origin
+
 from .Errors import type_error
-from typing import Final, Literal
+from .ValidationClasses import SequenceValidate, TypeValidate
+
 
 def qtm_lt_validator(value: list[Any] | tuple[Any, ...], TYPE: Any, name: str) -> tuple | list:
     """
@@ -19,7 +20,7 @@ def qtm_lt_validator(value: list[Any] | tuple[Any, ...], TYPE: Any, name: str) -
     :param name: name of value
     :return: validated list/tuple of elements
     """
-    func_name: Final[Literal["qtm_lt_validator"]] = "qtm_lt_validator"
+    func_name: Final = "qtm_lt_validator"
     origin = get_origin(TYPE)
     if origin not in (list, tuple):
         raise type_error()(f"""
@@ -44,7 +45,7 @@ def qtm_constr_validator(value: Any, annotation, name: str) -> Any:
     :param name: name of value
     :return: True, if validation succeeds
     """
-    func_name: Final[Literal["qtm_constr_validator"]] = "qtm_constr_validator"
+    func_name: Final = "qtm_constr_validator"
     if get_origin(annotation) is not Annotated:
         raise type_error()(f"""
             Validator: {func_name}

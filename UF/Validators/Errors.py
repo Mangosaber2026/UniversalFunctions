@@ -5,9 +5,9 @@ are not normally provided with Python.
 The custom errors in this module can be used just like any other conventional error provided by Python itself.
 """
 
-from textwrap import dedent
-from typing import Final, Literal
 from collections.abc import Callable
+from textwrap import dedent
+from typing import Final
 
 
 class ErrorDedent:
@@ -22,7 +22,7 @@ class ErrorDedent:
     <BLANKLINE>
     This is a TypeError!
     """
-    name: Final[Literal["ErrorDedent"]] = "ErrorDedent"
+    name: Final = "ErrorDedent"
     def __init__(self, error_func) -> None:
         if not isinstance(error_func, type) or not issubclass(error_func, Exception):
             raise TypeError(dedent(f"""

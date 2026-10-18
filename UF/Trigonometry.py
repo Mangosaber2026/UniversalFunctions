@@ -3,13 +3,14 @@ This module contains a collection of trigonometric functions to be used with deg
 """
 
 from math import (
-    radians,
-    degrees,
-    sin,
-    cos,
     asin,
+    cos,
+    degrees,
+    radians,
+    sin,
 )
 from numbers import Real
+
 from . import Validators as vls
 
 
