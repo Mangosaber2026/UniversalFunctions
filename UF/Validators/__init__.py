@@ -26,7 +26,7 @@ from .errors import (
     value_error,
 )
 from .quantum_func_validators import qtm_func_validator, qtm_validation_decorator
-from .QuantumValidators import qtm_constr_validator, qtm_lt_validator
+from .quantum_validators import qtm_constr_validator, qtm_lt_validator
 from .ValidationClasses import (
     ComboValidate,
     GreaterOrEqual,

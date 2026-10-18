@@ -7,7 +7,7 @@ from functools import wraps
 from inspect import signature
 from typing import Annotated, get_origin
 
-from .QuantumValidators import qtm_constr_validator, qtm_lt_validator
+from .quantum_validators import qtm_constr_validator, qtm_lt_validator
 from .ValidationClasses import TypeValidate
 
 
