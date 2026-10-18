@@ -17,9 +17,10 @@ def get_str(str_input: str, *check_values) -> str:
         value: str = input(str_input).lower()
         for check in check_values:
             vls.TypeValidate((str, dict, list, tuple))(check, name="check")
-            if isinstance(check, str) and check == value:
-                return value
-            elif isinstance(check, (dict, list, tuple)) and value in check:
+            if (
+                  isinstance(check, str) and check == value
+                  or isinstance(check, (dict, list, tuple)) and value in check
+            ):
                 return value
         print("Enter something VALID!")
         rest(1.5)

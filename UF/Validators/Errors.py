@@ -6,7 +6,8 @@ The custom errors in this module can be used just like any other conventional er
 """
 
 from textwrap import dedent
-from typing import Callable, Final, Literal
+from typing import Final, Literal
+from collections.abc import Callable
 
 
 class ErrorDedent:

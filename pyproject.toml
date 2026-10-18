@@ -17,3 +17,6 @@ authors = [
 include = [
     "UF*",
 ]
+
+[tool.ruff.lint]
+ignore = ["RUF022"]
