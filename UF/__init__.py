@@ -43,7 +43,7 @@ from .percent_class import (
     pct80,
     pct90,
 )
-from .StringCheck import get_str
+from .get_string import get_str
 
 from .Trigonometry import asine, cosine, sine
 
