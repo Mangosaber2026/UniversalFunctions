@@ -19,7 +19,7 @@ The package requires Python 3.14 or later.
 UniversalFunctions is imported through the UF Python package:
 
 ```python
-from UF.Validators import TypeValidate
+from uf.validators import TypeValidate
 from numbers import Real
 
 TypeValidate(Real)(56)

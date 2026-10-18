@@ -1,6 +1,6 @@
 from numbers import Real
 
-from . import Validators as vls
+from . import validators as vls
 
 
 class Percent:

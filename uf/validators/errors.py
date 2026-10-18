@@ -12,7 +12,7 @@ from typing import Final
 
 class ErrorDedent:
     """
-    This class is the error raiser for the other validators found in this package (UF).
+    This class is the error raiser for the other validators found in this package (uf).
 
     The use of this class is to make the error message be printed with some formatting instead of the conventional
     way it would be printed otherwise.

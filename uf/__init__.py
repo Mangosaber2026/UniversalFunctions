@@ -19,11 +19,9 @@ not be changed!
 """
 
 from .classes_to_dictionary import classes_to_dict
-
 from .decorator_archive import cls_deco_superposition, deco_superposition
-
+from .get_string import get_str
 from .get_variable import get_num
-
 from .helper_functions import (
     HelperFunctions,
     helper,
@@ -43,11 +41,8 @@ from .percent_class import (
     pct80,
     pct90,
 )
-from .get_string import get_str
-
 from .trigonometry import asine, cosine, sine
-
-from .Validators import *
+from .validators import *
 
 __all__ = [
     "classes_to_dict",

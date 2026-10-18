@@ -6,19 +6,19 @@ from numbers import Real
 from time import sleep as rest
 from typing import Final, Literal, overload
 
-from . import Validators as vls
+from . import validators as vls
 
-type int_type = type[int]
-type float_type = type[float]
-
-@overload
-def get_num(TYPE: int_type, entry: str, **options) -> int: ...
+type IntType = type[int]
+type FloatType = type[float]
 
 @overload
-def get_num(TYPE: float_type, entry: str, **options) -> float: ...
+def get_num(TYPE: IntType, entry: str, **options) -> int: ...
+
+@overload
+def get_num(TYPE: FloatType, entry: str, **options) -> float: ...
 
 def get_num(
-        TYPE: float_type|int_type,
+        TYPE: FloatType | IntType,
         entry: str,
         **options
 ) -> Real:

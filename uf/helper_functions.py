@@ -14,7 +14,7 @@ from math import sqrt
 from numbers import Real
 from typing import Any
 
-from . import Validators as vls
+from . import validators as vls
 from .classes_to_dictionary import classes_to_dict
 from .decorator_archive import cls_deco_superposition
 from .get_variable import get_num

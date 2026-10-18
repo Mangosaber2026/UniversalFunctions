@@ -11,7 +11,7 @@ from math import (
 )
 from numbers import Real
 
-from . import Validators as vls
+from . import validators as vls
 
 
 def sine(angle: Real) -> Real:
