@@ -17,7 +17,7 @@ from typing import Any
 from . import Validators as vls
 from .classes_to_dictionary import classes_to_dict
 from .decorator_archive import cls_deco_superposition
-from .GetVariable import get_num
+from .get_variable import get_num
 
 
 @cls_deco_superposition(staticmethod)

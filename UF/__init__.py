@@ -19,8 +19,11 @@ not be changed!
 """
 
 from .classes_to_dictionary import classes_to_dict
+
 from .decorator_archive import cls_deco_superposition, deco_superposition
-from .GetVariable import get_num
+
+from .get_variable import get_num
+
 from .HelperFunctions import (
     HelperFunctions,
     helper,
@@ -41,7 +44,9 @@ from .PercentClass import (
     pct90,
 )
 from .StringCheck import get_str
+
 from .Trigonometry import asine, cosine, sine
+
 from .Validators import *
 
 __all__ = [
