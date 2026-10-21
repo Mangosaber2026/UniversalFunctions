@@ -4,7 +4,7 @@ This module contains a function that takes all functions in a class and make a d
 
 from collections.abc import Callable
 
-from . import validators as vls
+from .. import validators as vls
 
 
 def classes_to_dict(*classes: type) -> dict[str, Callable]:

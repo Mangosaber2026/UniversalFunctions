@@ -6,7 +6,7 @@ from numbers import Real
 from time import sleep as rest
 from typing import Final, Literal, overload
 
-from . import validators as vls
+from .. import validators as vls
 
 type IntType = type[int]
 type FloatType = type[float]

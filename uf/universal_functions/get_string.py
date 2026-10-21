@@ -4,7 +4,7 @@ This module contains an extremely important function: get_str, which takes a str
 
 from time import sleep as rest
 
-from . import validators as vls
+from .. import validators as vls
 
 
 def get_str(str_input: str, *check_values) -> str:
