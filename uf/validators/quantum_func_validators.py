@@ -1,26 +1,16 @@
-"""
-This module contains a validator and decorator from the QTM Dimension.
-"""
+import collections.abc as cabc
+import functools as ft
+import inspect as ins
+import typing as tp
 
-from collections.abc import Callable
-from functools import wraps
-from inspect import signature
-from typing import Annotated, get_origin
-
-from .quantum_validators import qtm_constr_validator, qtm_lt_validator
-from .validation_classes import TypeValidate
+from . import quantum_func_validators as qtm_ft_vls
+from . import validation_classes as vcls
 
 
-def qtm_func_validator(func: Callable, *args, **kwargs) -> Callable:
-    """
-    Takes a function and compares the entered value with the expected type
-    :param func: given function
-    :param args: arguments
-    :param kwargs: keyword arguments
-    :return: given function if the provided argument matches the expected type, raises an error if not
-    """
-    TypeValidate(Callable)(func, name=func.__name__)
-    sig = signature(func)
+def qtm_func_validator(func, *args, **kwargs):
+
+    vcls.TypeValidate(cabc.Callable)(func, name=func.__name__)
+    sig = ins.signature(func)
     bound = sig.bind(*args, **kwargs)
 
     for name, value in bound.arguments.items():
@@ -30,30 +20,24 @@ def qtm_func_validator(func: Callable, *args, **kwargs) -> Callable:
         if type_ is parameter.empty:
             continue
 
-        origin = get_origin(type_)
+        origin = tp.get_origin(type_)
 
         if origin in (list, tuple):
-            qtm_lt_validator(value, type_, name)
+            qtm_ft_vls.qtm_lt_validator(value, type_, name)
 
-        elif origin is Annotated:
-            qtm_constr_validator(value, type_, name)
+        elif origin is tp.Annotated:
+            qtm_ft_vls.qtm_constr_validator(value, type_, name)
 
         else:
-            TypeValidate(type_)(value, name=name)
+            vcls.TypeValidate(type_)(value, name=name)
 
     return func
 
-def qtm_validation_decorator(func: Callable) -> Callable:
-    """
-    QUANTUM DECORATOR!
+def qtm_validation_decorator(func):
 
-    Decorates a function with the quantum function validator and returns the function
-    :param func: provided function
-    :return: validated function
-    """
-    TypeValidate(Callable)(func, name=func.__name__)
+    vcls.TypeValidate(cabc.Callable)(func, name=func.__name__)
 
-    @wraps(func)
+    @ft.wraps(func)
     def wrapper(*args, **kwargs):
         qtm_func_validator(func, *args, **kwargs)
         return func(*args, **kwargs)
