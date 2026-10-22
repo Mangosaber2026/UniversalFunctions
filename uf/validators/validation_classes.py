@@ -386,6 +386,7 @@ class ComboValidate:
     def __init__(self, value: Any, name: str | None = None) -> None:
         """
         This initiates the validator class with a given value and if desired, it's name.
+        
         :param value: any object of any type.
         :param name: the name of the value.
         """
