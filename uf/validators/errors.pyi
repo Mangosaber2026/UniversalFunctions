@@ -27,14 +27,18 @@ class ErrorDedent:
    def __init__(self, error_func: cabc.Callable) -> None:
       """
       Takes an error (Exception) class and returns an error message with it.
+
       :param error_func: Exception subclass exception
+
       :return: None
       """
 
    def __call__(self, text: str) -> Exception:
       """
       Takes a text (str) and returns the error message with it.
+
       :param text: string
+      
       :return: error message with given text
       """
 

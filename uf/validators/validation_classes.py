@@ -1,36 +1,17 @@
-"""
-This module contains validation classes which are expected to be used as callable objects.
-
-The classes themselves not only validate the given value against the expected type, but also
-validate the parameters. After the entered value has passed the validation, it is simply returned, though
-if it does not pass validation, an error is raised.
-"""
-
-from collections.abc import Callable
-from itertools import cycle
-from numbers import Real
-from types import EllipsisType
-from typing import Any, Final
+import collections.abc as cabc
+import itertools as itls
+import numbers as num
+import types as tps
+import typing as tp
 
 from .errors import constraint_error, item_count_error, type_error
 
 
 class TypeValidate:
-    """
-    Makes sure the entered value is of correct type.
+    name = "TypeValidate"
 
-    >>> TypeValidate(float)(-30.9)
-    -30.9
-    >>> TypeValidate(str)('Hello World')
-    'Hello World'
-    >>> TypeValidate(int)(-10)
-    -10
-    >>> TypeValidate((list, int))([1, "2"])
-    [1, '2']
-    """
-    name: Final = "TypeValidate"
-    def __init__(self, expected: type | tuple[type, ...]) -> None:
-        """Makes sure the entered value is a type object"""
+    def __init__(self, expected):
+
         if isinstance(expected, tuple):
             for item in expected:
                 if not isinstance(item, type):
@@ -57,8 +38,8 @@ class TypeValidate:
                     Type: {type(expected).__name__}
                 """)
 
-    def __call__(self, value: Any, name: str | None = None) -> Any:
-        """Validates the entered value, expected to be of expected type"""
+    def __call__(self, value, name = None):
+
         if name is not None and not isinstance(name, str):
             raise type_error()(f"""
             Validator: {self.name}
@@ -117,52 +98,27 @@ class TypeValidate:
                     """)
         return value
 
-def int_validate() -> TypeValidate:
-    """
-    Makes sure the entered value is an integer with TypeValidate.
-
-    >>> int_validate()(-39)
-    -39
-    """
+def int_validate():
     return TypeValidate(int)
 
-def str_validate() -> TypeValidate:
-    """
-    Makes sure the entered value is a string with TypeValidate.
-
-    >>> str_validate()('Hello World')
-    'Hello World'
-    """
+def str_validate():
     return TypeValidate(str)
 
-def real_validate() -> TypeValidate:
-    """
-    Makes sure the entered value is a real number with TypeValidate.
-
-    >>> real_validate()(-10.5)
-    -10.5
-    """
-    return TypeValidate(Real)
+def real_validate():
+    return TypeValidate(num.Real)
 
 class RealValidationParent:
-    """
-    Parent class for classes which require an expected real number value when an instance is made of them.
-    """
-    def __init__(self, expected: Real) -> None:
+
+    def __init__(self, expected):
         self._validator = real_validate()
         real_validate()(expected, name="expected")
         self.expected = expected
 
 class Positive:
-    """
-    Makes sure the entered value is positive.
 
-    >>> Positive()(50)
-    50
-    """
-    name: Final = "Positive"
-    def __call__(self, value: Real, name: str|None = None) -> Real:
-        """Validates the entered value, expected to be positive (above 0)"""
+    name = "Positive"
+
+    def __call__(self, value, name = None):
         if name is not None:
             TypeValidate(str)(name, name="name")
             real_validate()(value, name)
@@ -183,15 +139,10 @@ class Positive:
         return value
 
 class LessThan(RealValidationParent):
-    """
-    Makes sure the entered value is less than expected value.
+    name = "LessThan"
 
-    >>> LessThan(75)(10)
-    10
-    """
-    name: Final = "LessThan"
-    def __call__(self, value: Real, name: str|None = None) -> Real:
-        """Validates the entered value, expected to be less than expected value"""
+    def __call__(self, value, name = None):
+
         if name is not None:
             str_validate()(name, name="name")
             real_validate()(value, name=name)
@@ -212,17 +163,10 @@ class LessThan(RealValidationParent):
         return value
 
 class LessOrEqual(RealValidationParent):
-    """
-    Makes sure the entered value is less than or equal to expected value.
+    name = "LessOrEqual"
 
-    >>> LessOrEqual(100)(90)
-    90
-    >>> LessOrEqual(50)(50)
-    50
-    """
-    name: Final = "LessOrEqual"
-    def __call__(self, value: Real, name: str|None = None) -> Real:
-        """Validates the entered value, expected to be less than or equal to expected value"""
+    def __call__(self, value, name = None):
+
         if name is not None:
             str_validate()(name, "name")
             real_validate()(value, name=name)
@@ -244,15 +188,10 @@ class LessOrEqual(RealValidationParent):
 
 
 class GreaterThan(RealValidationParent):
-    """
-    Makes sure the entered value is greater than expected value.
+    name = "GreaterThan"
 
-    >>> GreaterThan(5)(10)
-    10
-    """
-    name: Final = "GreaterThan"
-    def __call__(self, value: Real, name: str|None = None) -> Real:
-        """Validates the entered value, expected to be greater than expected value"""
+    def __call__(self, value, name = None):
+
         if name is not None:
             str_validate()(name, "name")
             real_validate()(value, name=name)
@@ -273,17 +212,10 @@ class GreaterThan(RealValidationParent):
         return value
 
 class GreaterOrEqual(RealValidationParent):
-    """
-    Makes sure the entered value is greater than or equal to expected value.
+    name = "GreaterOrEqual"
 
-    >>> GreaterOrEqual(5)(10)
-    10
-    >>> GreaterOrEqual(5)(5)
-    5
-    """
-    name: Final = "GreaterOrEqual"
-    def __call__(self, value: Real, name: str|None = None) -> Real:
-        """Validates the entered value, expected to be greater than or equal to expected value"""
+    def __call__(self, value, name = None):
+
         if name is not None:
             str_validate()(name, "name")
             real_validate()(value, name=name)
@@ -304,20 +236,10 @@ class GreaterOrEqual(RealValidationParent):
         return value
 
 class SequenceValidate:
-    """
-    Makes sure the entered value is a sequence of any value.
 
-    >>> validator = SequenceValidate(
-    ...     list,
-    ...     list,
-    ...     callable_items=(SequenceValidate(Real, ...),)
-    ... )
-    >>> validator([[1, 2], [3, 4]])
-    [[1, 2], [3, 4]]
-    """
-    name: Final = "SequenceValidate"
-    def __init__(self, *expected: type | EllipsisType, **kwargs) -> None:
-        """Validates and sets the tuple to a variable"""
+    name = "SequenceValidate"
+    def __init__(self, *expected, **kwargs):
+
         for item in expected:
             if item is not Ellipsis:
                 TypeValidate(type)(item)
@@ -340,24 +262,24 @@ class SequenceValidate:
         if callable_name in kwargs:
             TypeValidate(tuple)(kwargs[callable_name], callable_name)
             for func in kwargs[callable_name]:
-                TypeValidate(Callable)(func)
+                TypeValidate(cabc.Callable)(func)
 
             self.callables = kwargs[callable_name]
 
-    def __call__(self, value: tuple|list, name: str|None = None) -> tuple|list:
-        """Validates the entered value, expected to be a tuple of expected value/s"""
+    def __call__(self, value, name = None):
+
         if name is not None:
             str_validate()(name, "name")
             TypeValidate((tuple, list))(value, name=name)
         TypeValidate((tuple, list))(value)
 
         type_store = []
-        if isinstance(self.expected[-1], EllipsisType):
+        if isinstance(self.expected[-1], tps.EllipsisType):
             for item in self.expected:
-                if not isinstance(item, EllipsisType):
+                if not isinstance(item, tps.EllipsisType):
                     type_store.append(item)
 
-            for given_obj, expected_type in zip(value, cycle(type_store)):
+            for given_obj, expected_type in zip(value, itls.cycle(type_store)):
                 TypeValidate(expected_type)(given_obj)
                 for func in self.callables:
                     func(given_obj)
@@ -380,29 +302,18 @@ class SequenceValidate:
         return value
 
 class ComboValidate:
-    """
-    This class takes a value (and name if provided) and uses the given validators to validate it.
-    """
-    def __init__(self, value: Any, name: str | None = None) -> None:
-        """
-        This initiates the validator class with a given value and if desired, it's name.
-        
-        :param value: any object of any type.
-        :param name: the name of the value.
-        """
+    
+    def __init__(self, value, name = None):
+
         if name is not None:
             str_validate()(name, name="name")
 
         self.value = value
         self.name = name
 
-    def __call__(self, *validation_funcs: Callable) -> Any:
-        """
-        This executes all the validators given for validation_funcs by using the provided value and it's name if given.
-        :param validation_funcs: validator functions.
-        :return: validated value.
-        """
-        SequenceValidate(Callable, ...)(validation_funcs, name="validation_funcs")
+    def __call__(self, *validation_funcs):
+        
+        SequenceValidate(cabc.Callable, ...)(validation_funcs, name="validation_funcs")
         for validator in validation_funcs:
             if self.name is not None:
                 validator(self.value, name=self.name)

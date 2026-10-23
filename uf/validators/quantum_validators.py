@@ -1,7 +1,7 @@
 import typing as tp
 
 from .errors import type_error
-from .validation_classes import SequenceValidate, TypeValidate
+from . import validation_classes as vcls
 
 
 def qtm_lt_validator(value, TYPE, name):
@@ -16,10 +16,10 @@ def qtm_lt_validator(value, TYPE, name):
             Received: {TYPE}
             """)
 
-    TypeValidate(origin)(value)
+    vcls.TypeValidate(origin)(value)
 
     element_type = tp.get_args(TYPE)
-    validator = SequenceValidate(*element_type)
+    validator = vcls.SequenceValidate(*element_type)
 
     return validator(value, name=name)
 
@@ -36,8 +36,8 @@ def qtm_constr_validator(value, annotation, name):
 
     type_obj, *constraints = tp.get_args(annotation)
 
-    TypeValidate(str)(name, name="name")
-    TypeValidate(type_obj)(value, name=name)
+    vcls.TypeValidate(str)(name, name="name")
+    vcls.TypeValidate(type_obj)(value, name=name)
 
     for constraint in constraints:
         constraint(value)
