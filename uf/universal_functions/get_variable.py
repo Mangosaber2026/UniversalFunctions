@@ -1,38 +1,22 @@
-"""
-This module contains an extremely important function: get_num, which takes a numerical value from the user.
-"""
-
-from numbers import Real
+import numbers as num
 from time import sleep as rest
-from typing import Final, Literal, overload
+import typing as tp
 
 from .. import validators as vls
 
+
 type IntType = type[int]
 type FloatType = type[float]
-
-@overload
-def get_num(TYPE: IntType, entry: str, **options) -> int: ...
-
-@overload
-def get_num(TYPE: FloatType, entry: str, **options) -> float: ...
 
 def get_num(
         TYPE: FloatType | IntType,
         entry: str,
         **options
-) -> Real:
-    """
-    Gets a real numerical value from the user
+) -> num.Real:
 
-    :param TYPE: float or int;  which type of value to check for
-    :param entry: str; input string
-    :param options: MAX, MIN, store
-    :return: float or int
-    """
-    func_name: Final = "get_num"
-    type_obj_name: Final = "TYPE"
-    type_item: Final = TYPE
+    func_name: tp.Final = "get_num"
+    type_obj_name: tp.Final = "TYPE"
+    type_item: tp.Final = TYPE
 
     if type_item not in (int, float):
         raise vls.type_error()(f"""
@@ -48,17 +32,17 @@ def get_num(
 
     vls.str_validate()(entry, name="entry")
 
-    store_var: Final = "store"
+    store_var: tp.Final = "store"
     if store_var in options:
         store_value = options[store_var]
-        vls.TypeValidate((Real, type(None)))(store_value, name=store_var)
+        vls.TypeValidate((num.Real, type(None)))(store_value, name=store_var)
 
-    min_var: Final = "MIN"
+    min_var: tp.Final = "MIN"
     if min_var in options:
         min_value = options[min_var]
         vls.real_validate()(min_value, name=min_var)
 
-    max_var: Final = "MAX"
+    max_var: tp.Final = "MAX"
     if max_var in options:
         max_value = options[max_var]
         vls.real_validate()(max_value, name=max_var)
@@ -79,16 +63,16 @@ def get_num(
             if store_var in options:
                 reserve: str = input(entry)
                 if reserve == "ans":
-                    if isinstance(store_value, Real):
-                        value: Real = store_value
+                    if isinstance(store_value, num.Real):
+                        value: num.Real = store_value
                     else:
                         print("\nThere is no value stored yet!")
                         continue
                 else:
-                    value: Real = TYPE(reserve)
+                    value: num.Real = TYPE(reserve)
             else:
-                value: Real = TYPE(input(entry))
-            value_name: Literal["value"] = "value"
+                value: num.Real = TYPE(input(entry))
+            value_name: tp.Literal["value"] = "value"
 
             if min_var in options and max_var in options:
                 vls.GreaterOrEqual(min_value)(value, name=value_name)

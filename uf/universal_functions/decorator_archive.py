@@ -1,19 +1,11 @@
-"""
-This module contains decorators which take any number of decorators and apply them to the function they are assigned to.
-"""
-
-from collections.abc import Callable
+import collections.abc as cabc
 
 from .. import validators as vls
 
 
-def cls_deco_superposition(*decorators: Callable) -> Callable:
-    """
-    DECORATOR!!   Creates a class decorator that applies the given decorator to every user defined function
-    :param decorators: provided decorator functions
-    :return: a class decorator that transforms the class (& it's functions) and returns it
-    """
-    vls.SequenceValidate(Callable, ...)(decorators, name="decorators")
+def cls_deco_superposition(*decorators):
+
+    vls.SequenceValidate(cabc.Callable, ...)(decorators, name="decorators")
     deco_composer = deco_superposition(*decorators)
 
     def inner(cls):
@@ -23,13 +15,9 @@ def cls_deco_superposition(*decorators: Callable) -> Callable:
         return cls
     return inner
 
-def deco_superposition(*decorators: Callable) -> Callable:
-    """
-    DECORATOR! this decorator takes multiple decorators and applies them to the given function the same way python would naturally
-    :param decorators: decorator functions
-    :return: supplied function
-    """
-    vls.SequenceValidate(Callable, ...)(decorators, name="decorators")
+def deco_superposition(*decorators):
+
+    vls.SequenceValidate(cabc.Callable, ...)(decorators, name="decorators")
     def inner_deco(func):
         for decorator in reversed(decorators):
             func = decorator(func)

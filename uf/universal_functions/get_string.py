@@ -1,18 +1,10 @@
-"""
-This module contains an extremely important function: get_str, which takes a string input from the user.
-"""
-
 from time import sleep as rest
 
 from .. import validators as vls
 
 
-def get_str(str_input: str, *check_values) -> str:
-    """
-    Checks whether the input string matches the allowed values (*check_values)
-    :param str_input: input string
-    :param check_values: allowed string values (all lowercase), options: str, dict, list, tuple
-    """
+def get_str(str_input, *check_values):
+    
     vls.str_validate()(str_input, name="str_input")
     while True:
         value: str = input(str_input).lower()

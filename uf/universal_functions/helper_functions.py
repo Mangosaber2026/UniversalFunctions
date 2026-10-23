@@ -1,106 +1,79 @@
-"""
-This module contains the HelperFunctions class which provides a collection of reusable helper functions
-so that the user can easily use them without having to write the code for them again.
-
-Some other functions:
-
-sine -> calculates sine value
-
-range_f -> acts like the conventional range function except for that this takes rational inputs
-"""
-
-from collections.abc import Generator
-from math import sqrt
-from numbers import Real
-from typing import Any
+import collections.abc as cabc
+import math
+import numbers as num
 
 from .. import validators as vls
-from .classes_to_dictionary import classes_to_dict
-from .decorator_archive import cls_deco_superposition
-from .get_variable import get_num
+from . import classes_to_dictionary as cls_to_dict
+from . import decorator_archive as dec_arc
+from . import get_variable as gv
 
 
-@cls_deco_superposition(staticmethod)
+@dec_arc.cls_deco_superposition(staticmethod)
 class HelperFunctions:
-    """This class provides a collection of reusable helper functions"""
-    def intervals_f() -> Real:
-        """Asks the user for rational intervals"""
-        interval_num: float = get_num(float, "Enter intervals(ℚ>0): ", MIN=0)
+
+    def intervals_f():
+
+        interval_num: float = gv.get_num(float, "Enter intervals(ℚ>0): ", MIN=0)
         return interval_num
 
-    def length_float() -> Real:
-        """Asks the user for rational lengths"""
-        length: float = get_num(float, "Enter side length(ℚ>0): ", MIN=0)
+    def length_float():
+
+        length: float = gv.get_num(float, "Enter side length(ℚ>0): ", MIN=0)
         return length
 
-    def radius_float() -> Real:
-        """Asks the user for rational radius"""
-        radius: float = get_num(float, "Enter radius(ℚ>0): ", MIN=0)
+    def radius_float():
+
+        radius: float = gv.get_num(float, "Enter radius(ℚ>0): ", MIN=0)
         return radius
 
-    def object_num() -> int:
-        """Asks the user for the number of objects"""
-        object_count: int = get_num(int, "Enter object count(ℕ≥1): ", MIN=1)
+    def object_num():
+
+        object_count: int = gv.get_num(int, "Enter object count(ℕ≥1): ", MIN=1)
         return object_count
 
-    def sides_num() -> int:
-        """Asks the user for the number of sides"""
-        sides: int = get_num(int, "Enter sides count(ℕ≥3): ", MIN=3)
+    def sides_num():
+        
+        sides: int = gv.get_num(int, "Enter sides count(ℕ≥3): ", MIN=3)
         return sides
 
-    def row_num() -> int:
-        """Asks the user for the number of rows"""
-        row_count: int = get_num(int, "Enter row count(ℕ≥1): ", MIN=1)
+    def row_num():
+        
+        row_count: int = gv.get_num(int, "Enter row count(ℕ≥1): ", MIN=1)
         return row_count
 
-    def row_pair() -> int:
-        """Asks the user for the number of pairs of rows"""
-        row_count: int = get_num(int, "Enter row pairs count(ℕ≥1): ", MIN=1)
+    def row_pair():
+        
+        row_count: int = gv.get_num(int, "Enter row pairs count(ℕ≥1): ", MIN=1)
         return row_count
 
-    def diameter_sq(length: Real) -> tuple[Real,Real]:
-        """
-        Calculates the diameter of a square with given length
-        :return: diameter, diameter/2
-        """
+    def diameter_sq(length):
+        
         vls.ComboValidate(length, name="length")(
             vls.real_validate(),
             vls.Positive()
         )
 
-        diameter: float = length*sqrt(2); d_half: Real = diameter / 2
+        diameter: float = length*math.sqrt(2); d_half: num.Real = diameter / 2
         return diameter, d_half
 
-    def x_ft() -> Real:
-        """Asks the user for the x value (on the coordinate system)"""
-        x_val: float = get_num(float, "Enter x value: ")
+    def x_ft():
+        
+        x_val: float = gv.get_num(float, "Enter x value: ")
         return x_val
 
-    def y_ft() -> Real:
-        """Asks the user for the y value (on the coordinate system)"""
-        y_val: float = get_num(float, "Enter y value: ")
+    def y_ft():
+        
+        y_val: float = gv.get_num(float, "Enter y value: ")
         return y_val
 
-    def list_helperfunctions() -> dict:
-        """
-        Creates a dictionary with all helper functions
-        :return: dictionary
-        """
-        return classes_to_dict(HelperFunctions)
+    def list_helperfunctions():
+
+        return cls_to_dict.classes_to_dict(HelperFunctions)
 
 helper = HelperFunctions
 
-def range_f(
-        start: Real,
-        stop: Real,
-        step: Real
-) -> Generator[Real, Any]:
-    """
-    Lets the user choose Real inputs for start, stop and step
-    :param start: start value; Real number
-    :param stop: stop value; Real number >= start
-    :param step: step value; Real number > 0
-    """
+def range_f(start, stop, step):
+    
     items = (start, stop, step)
 
     for item in items:
