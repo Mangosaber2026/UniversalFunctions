@@ -1,3 +1,5 @@
+# ⚓ Anchor for this module: [[uf-anchor|uf.__init__.py]] 
+
 """
 Welcome to the bridge between the Quantum Dimension and Python
 
@@ -21,63 +23,158 @@ functions. These are still extremely important to the rest of the main package a
 not be changed!
 """
 
+#* 📝 Imports functions and classes from the [[#mathematics-anchor|mathematics package]] 
 from .mathematics import (
-   Percent,
-   pct10,
-   pct20,
-   pct25,
-   pct30,
-   pct40,
-   pct50,
-   pct60,
-   pct70,
-   pct75,
-   pct80,
-   pct90,
+    Percent,  
+    # 🔗 Link to source code: [[#Percent-anchor|class Percent]] 
 
-   sine,
-   asine,
-   cosine,
+    pct10,
+    # 🔗 Link to source code: [[#pct10-anchor|pct10()]] 
+
+    pct20,
+    # 🔗 Link to source code: [[#pct20-anchor|pct20()]] 
+
+    pct25,
+    # 🔗 Link to source code: [[#pct25-anchor|pct25()]] 
+
+    pct30,
+    # 🔗 Link to source code: [[#pct30-anchor|pct30()]] 
+
+    pct40,
+    # 🔗 Link to source code: [[#pct40-anchor|pct40()]] 
+
+    pct50,
+    # 🔗 Link to source code: [[#pct50-anchor|pct50()]] 
+
+    pct60,
+    # 🔗 Link to source code: [[#pct60-anchor|pct60()]] 
+
+    pct70,
+    # 🔗 Link to source code: [[#pct70-anchor|pct70()]] 
+
+    pct75,
+    # 🔗 Link to source code: [[#pct75-anchor|pct75()]] 
+
+    pct80,
+    # 🔗 Link to source code: [[#pct80-anchor|pct80()]] 
+
+    pct90,
+    # 🔗 Link to source code: [[#pct90-anchor|pct90()]] 
+
+    sine,
+    # 🔗 Link to source code: [[#sine-anchor|sine()]] 
+
+    cosine,
+    # 🔗 Link to source code: [[#cosine-anchor|cosine()]] 
+
+    asine,
+    # 🔗 Link to source code: [[#asine-anchor|asine()]] 
 )
 
+#* 📝 Imports functions, classes and aliases from the [[#universal-functions-anchor|universal_functions package]] 
 from .universal_functions import (
-   HelperFunctions,
    classes_to_dict,
+   # 🔗 Link to source code: [[#classes-to-dict-anchor|classes_to_dict()]] 
+
    cls_deco_superposition,
+   # 🔗 Link to source code: [[#cls-deco-superposition-anchor|cls_deco_superposition()]] 
+   
    deco_superposition,
-   get_num,
+   # 🔗 Link to source code: [[#deco-superposition-anchor|deco_superposition()]] 
+
    get_str,
+   # 🔗 Link to source code: [[#get-str-anchor|get_str()]] 
+
+   get_num,
+   # 🔗 Link to source code: [[#get-num-anchor|get_num()]] 
+
+   HelperFunctions,
+   # 🔗 Link to source code: [[#HelperFunctions-anchor|class HelperFunctions]] 
+   
    helper,
+   # 🔗 Link to source code: [[#helper-anchor|alias helper]] 
+   
    range_f,
+   # 🔗 Link to source code: [[#range-f-anchor|range_f()]] 
 )
 
+#* 📝 Imports classes and functions from the [[#validators-anchor|validators package]] 
 from .validators import (
    ComboValidate,
+   # 🔗 Link to source code: [[#ComboValidate-anchor|class ComboValidate]] 
+
    ConstraintError,
+   # 🔗 Link to source code: [[#ConstraintError-anchor|error class ConstraintError]] 
+
    ErrorDedent,
+   # 🔗 Link to source code: [[#ErrorDedent-anchor|class ErrorDedent]] 
+
    GreaterOrEqual,
+   # 🔗 Link to source code: [[#GreaterOrEqual-anchor|class GreaterOrEqual]] 
+
    GreaterThan,
+   # 🔗 Link to source code: [[#GreaterThan-anchor|class GreaterThan]] 
+
    ItemCountError,
+   # 🔗 Link to source code: [[#ItemCountError-anchor|error class ItemCountError]] 
+
    LessOrEqual,
+   # 🔗 Link to source code: [[#LessOrEqual-anchor|class LessOrEqual]] 
+
    LessThan,
+   # 🔗 Link to source code: [[#LessThan-anchor|class LessThan]] 
+
    Positive,
+   # 🔗 Link to source code: [[#Positive-anchor|class Positive]] 
+
    RealValidationParent,
+   # 🔗 Link to source code: [[#RealValidationParent-anchor|class RealValidationParent]] 
+
    SequenceValidate,
+   # 🔗 Link to source code: [[#SequenceValidate-anchor|class SequenceValidate]] 
+
    TypeValidate,
+   # 🔗 Link to source code: [[#TypeValidate-anchor|class TypeValidate]] 
+
    attribute_error,
+   # 🔗 Link to source code: [[#attribute-error-anchor|attribute_error()]] 
+
    constraint_error,
+   # 🔗 Link to source code: [[#constraint-error-anchor|constraint_error()]] 
+
    int_validate,
+   # 🔗 Link to source code: [[#int-validate-anchor|int_validate()]] 
+
    item_count_error,
+   # 🔗 Link to source code: [[#item-count-error-anchor|item_count_error()]] 
+
    qtm_constr_validator,
+   # 🔗 Link to source code: [[#qtm-constr-validator-anchor|qtm_constr_validator()]] 
+
    qtm_func_validator,
+   # 🔗 Link to source code: [[#qtm-func-validator-anchor|qtm_func_validator]] 
+
    qtm_lt_validator,
+   # 🔗 Link to source code: [[#qtm-lt-validator-anchor|qtm_lt_validator()]] 
+
    qtm_validation_decorator,
+   # 🔗 Link to source code: [[#qtm-validation-decorator-anchor|qtm_validation_decorator()]] 
+
    real_validate,
+   # 🔗 Link to source code: [[#real-validate-anchor|real_validate()]] 
+
    str_validate,
+   # 🔗 Link to source code: [[#str-validate-anchor|str_validate()]] 
+
    type_error,
+   # 🔗 Link to source code: [[#type-error-anchor|type_error()]] 
+
    value_error,
+   # 🔗 Link to source code: [[#value-error-anchor|value_error()]] 
 )
 
+
+#* 📝 Specifies all available classes, functionsand constants through wildcard import
 __all__ = [
    "Percent",
    "pct10",
@@ -96,8 +193,8 @@ __all__ = [
    "asine",
 
    "classes_to_dict",
-   "deco_superposition",
    "cls_deco_superposition",
+   "deco_superposition",
    "get_str",
    "get_num",
    "HelperFunctions",

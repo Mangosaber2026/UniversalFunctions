@@ -1,13 +1,14 @@
-# Anchor for this module: [[get-string-anchor|get_string.py]]
+# ⚓ Anchor for this module: [[get-string-anchor|get_string.py]] 
+# 🔗 Parent package: [[#universal-functions-anchor|universal_functions]] 
 
 from time import sleep as rest
 
 from .. import validators as vls
 
 
-# get_str anchor: [[get-str-anchor|get_str]]
-#* Gets a string from the user with provided string input and
-#* verifies the entered value against given check values
+# ⚓ get_str anchor: [[get-str-anchor|get_str()]] 
+ #* 📝 Gets a string from the user with provided string input and
+ #* 📝 verifies the entered value against given check values
 def get_str(str_input, *check_values):
     
     vls.str_validate()(str_input, name="str_input")

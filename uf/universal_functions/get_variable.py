@@ -1,4 +1,5 @@
-# Anchor for this module: [[get-variable-anchor|get_variable.py]]
+# ⚓ Anchor for this module: [[get-variable-anchor|get_variable.py]] 
+# 🔗 Parent package: [[#universal-functions-anchor|universal_functions]] 
 
 import numbers as num
 from time import sleep as rest
@@ -7,8 +8,8 @@ import typing as tp
 from .. import validators as vls
 
 
-# get_num anchor: [[get-num-anchor|get_num]]
-#* Gets a numerical value from the user, validation depends on the customzation
+# ⚓ get_num anchor: [[get-num-anchor|get_num()]] 
+ #* 📝 Gets a numerical value from the user, validation depends on the customzation
 def get_num(TYPE, entry, **options):
 
     func_name: tp.Final = "get_num"

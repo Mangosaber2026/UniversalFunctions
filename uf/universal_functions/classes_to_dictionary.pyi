@@ -1,11 +1,11 @@
 """
 This module contains a function that takes all functions in a class and make a dictionary with them.
 """
-#* File type: Python type stub (.pyi)
-#* Purpose: Describes the module's interface for documentation,
-#*          editor support, and static type checking.
-#* Runtime: Contains no implementation; see the corresponding
-#*          .py file for executable code.
+ #* 📝 File type: Python type stub (.pyi)
+ #* 📝 Purpose: Describes the module's interface for documentation,
+ #* 📝         editor support, and static type checking.
+ #* 📝 Runtime: Contains no implementation; see the corresponding
+ #* 📝         .py file for executable code.
 
 import collections.abc as cabc
 

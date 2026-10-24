@@ -1,11 +1,11 @@
 """
 This module contains a collection of trigonometric functions to be used with degrees.
 """
-#* File type: Python type stub (.pyi)
-#* Purpose: Describes the module's interface for documentation,
-#*          editor support, and static type checking.
-#* Runtime: Contains no implementation; see the corresponding
-#*          .py file for executable code.
+ #* 📝 File type: Python type stub (.pyi)
+ #* 📝 Purpose: Describes the module's interface for documentation,
+ #* 📝         editor support, and static type checking.
+ #* 📝 Runtime: Contains no implementation; see the corresponding
+ #* 📝         .py file for executable code.
 
 import numbers as num
 

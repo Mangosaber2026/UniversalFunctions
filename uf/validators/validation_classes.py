@@ -1,15 +1,20 @@
+# ⚓ Anchor for this module: [[validation-classes-anchor|validation_classes.py]] 
+# 🔗 Parent package: [[#validators-anchor|validators]] 
+
 import collections.abc as cabc
 import itertools as itls
 import numbers as num
 import types as tps
-import typing as tp
 
 from .errors import constraint_error, item_count_error, type_error
 
 
+# ⚓ TypeValidate anchor: [[TypeValidate-anchor|class TypeValidate]] 
+#* 📝 Takes a given expected value type and then validates the given value against it
 class TypeValidate:
     name = "TypeValidate"
 
+    #* 📝 Initializes [[#TypeValidate-anchor|a class]] instance with the expected value type
     def __init__(self, expected):
 
         if isinstance(expected, tuple):
@@ -38,6 +43,8 @@ class TypeValidate:
                     Type: {type(expected).__name__}
                 """)
 
+    #* 📝 Calls [[#TypeValidate-anchor|this class]] and validates the given value against the expected type
+    #* 📝 with the value's `name` if provided
     def __call__(self, value, name = None):
 
         if name is not None and not isinstance(name, str):
@@ -98,26 +105,41 @@ class TypeValidate:
                     """)
         return value
 
+
+# ⚓ int_validate anchor: [[int-validate-anchor|int_validate()]] 
+#* 📝 Creates an instance of [[#TypeValidate-anchor|TypeValidate]] with `int` and returns it
 def int_validate():
     return TypeValidate(int)
 
+# ⚓ str_validate anchor: [[str-validate-anchor|str_validate()]] 
+#* 📝 Creates an instance of [[#TypeValidate-anchor|TypeValidate]] with `str` and returns it
 def str_validate():
     return TypeValidate(str)
 
+# ⚓ real_validate anchor: [[real-validate-anchor|real_validate()]] 
+#* 📝 Creates an instance of [[#TypeValidate-anchor|TypeValidate]] with `num.Real` and returns it
 def real_validate():
     return TypeValidate(num.Real)
 
+# ⚓ RealValidationParent anchor: [[RealValidationParent-anchor|class RealValidationParent]] 
+#* 📝 Parent class for classes which need a real number to initialize an instance
 class RealValidationParent:
 
+    # 📝 Initializes [[#RealValidationParent-anchor|a class]] instance with a given real number
     def __init__(self, expected):
         self._validator = real_validate()
         real_validate()(expected, name="expected")
         self.expected = expected
 
+
+# ⚓ Positive anchor: [[Positive-anchor|class Positive]] 
+#* 📝 Validates whether the provided value is a real number
 class Positive:
 
     name = "Positive"
 
+    #* 📝 Calls [[#Positive-anchor|this class]] and checks whether given 
+    #* 📝 value is a real number with the value's `name` if provided
     def __call__(self, value, name = None):
         if name is not None:
             TypeValidate(str)(name, name="name")
@@ -137,10 +159,15 @@ class Positive:
                     Value: {value}
                 """)
         return value
+    
 
+# ⚓ LessThan anchor: [[LessThan-anchor|class LessThan]] 
+#* 📝 Checks whether the `expected` is greater than `value`
 class LessThan(RealValidationParent):
     name = "LessThan"
 
+    #* 📝 Calls [[#LessThan-anchor|this class]] and executes the validation
+    #* 📝 with the value's `name` if provided
     def __call__(self, value, name = None):
 
         if name is not None:
@@ -161,10 +188,15 @@ class LessThan(RealValidationParent):
                     Value: {value}
                 """)
         return value
+    
 
+# ⚓ LessOrEqual anchor: [[LessOrEqual-anchor|class LessOrEqual]] 
+#* 📝 Checks whether the given value is less or equal to `expected`
 class LessOrEqual(RealValidationParent):
     name = "LessOrEqual"
 
+    #* 📝 Calls [[#LessOrEqual-anchor|this class]] and executes the validation 
+    #* 📝 with the value's `name` if provided
     def __call__(self, value, name = None):
 
         if name is not None:
@@ -187,9 +219,13 @@ class LessOrEqual(RealValidationParent):
         return value
 
 
+# ⚓ GreaterThan anchor: [[GreaterThan-anchor|class GreaterThan]] 
+#* 📝 Checks whether the given value is greater than `expected` 
 class GreaterThan(RealValidationParent):
     name = "GreaterThan"
 
+    #* 📝 Calls [[#GreaterThan-anchor|this class]] and executes the validation
+    #* 📝 with the value's `name` if provided
     def __call__(self, value, name = None):
 
         if name is not None:
@@ -211,9 +247,14 @@ class GreaterThan(RealValidationParent):
                 """)
         return value
 
+
+# ⚓ GreaterOrEqual anchor: [[GreaterOrEqual-anchor|class GreaterOrEqual]] 
+#* 📝 Checks whether the given value is greater or equal to `expected`
 class GreaterOrEqual(RealValidationParent):
     name = "GreaterOrEqual"
 
+    #* 📝 Calls [[#GreaterOrEqual-anchor|this class]] and executes the validation 
+    #* 📝 with the value's `name` if provided
     def __call__(self, value, name = None):
 
         if name is not None:
@@ -235,10 +276,16 @@ class GreaterOrEqual(RealValidationParent):
                 """)
         return value
 
+
+# ⚓ SequenceValidate anchor: [[SequenceValidate-anchor|class SequenceValidate]] 
+#* 📝 Validates a sequence of one or multiple types of values
 class SequenceValidate:
 
     name = "SequenceValidate"
-    def __init__(self, *expected, **kwargs):
+
+    #* 📝 Initializes [[#SequenceValidate-anchor|a class]] instance with expected value types (*expected)
+    #* 📝 and validator functions (**validator_funcs) to be applied to each item in the sequence if desired
+    def __init__(self, *expected, **validator_funcs):
 
         for item in expected:
             if item is not Ellipsis:
@@ -259,13 +306,14 @@ class SequenceValidate:
         callable_name = "callable_items"
         self.callables = ()
 
-        if callable_name in kwargs:
-            TypeValidate(tuple)(kwargs[callable_name], callable_name)
-            for func in kwargs[callable_name]:
+        if callable_name in validator_funcs:
+            TypeValidate(tuple)(validator_funcs[callable_name], callable_name)
+            for func in validator_funcs[callable_name]:
                 TypeValidate(cabc.Callable)(func)
 
-            self.callables = kwargs[callable_name]
+            self.callables = validator_funcs[callable_name]
 
+    #* 📝 Calls [[#SequenceValidate-anchor|this class]] and executes the validation with given sequence for `value` and its `name`
     def __call__(self, value, name = None):
 
         if name is not None:
@@ -301,8 +349,11 @@ class SequenceValidate:
                     func(actual_value)
         return value
 
+# ⚓ ComboValidate anchor: [[ComboValidate-anchor|class ComboValidate]] 
+#* 📝 Takes a value and applies a given arbitrary number of validation functions to it
 class ComboValidate:
-    
+
+    #* 📝 Initializes [[#ComboValidate-anchor|a class]] instance with a value and its name
     def __init__(self, value, name = None):
 
         if name is not None:
@@ -311,6 +362,7 @@ class ComboValidate:
         self.value = value
         self.name = name
 
+    #* 📝 Calls [[#ComboValidate-anchor|this class]] and validates the value against given validator functions
     def __call__(self, *validation_funcs):
         
         SequenceValidate(cabc.Callable, ...)(validation_funcs, name="validation_funcs")

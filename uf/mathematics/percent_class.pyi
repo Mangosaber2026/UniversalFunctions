@@ -4,11 +4,11 @@ This module defines the Percent class, which represents a percentage value.
 The Percent class is designed to be used in mathematical calculations where percentages are involved,
  allowing for easy manipulation and conversion between percentage values and their decimal equivalents.
 """
-#* File type: Python type stub (.pyi)
-#* Purpose: Describes the module's interface for documentation,
-#*          editor support, and static type checking.
-#* Runtime: Contains no implementation; see the corresponding
-#*          .py file for executable code.
+ #* 📝 File type: Python type stub (.pyi)
+ #* 📝 Purpose: Describes the module's interface for documentation,
+ #* 📝         editor support, and static type checking.
+ #* 📝 Runtime: Contains no implementation; see the corresponding
+ #* 📝         .py file for executable code.
 
 import numbers as num
 
