@@ -7,6 +7,9 @@ Nevertheless, be aware, even though you may use the reusable functions as much a
 not only do you have to credit the author, but also make sure you DO NOT change anything unless you
 have become an official contributor.
 
+As for the links in this package, if you decide to check out the source code, you can just click
+on the links to go the source code.
+
 __________ Quantum Dimension __________
 
 Quantum Turtle Mechanics:  an extremely specialized sector where the author decided to implement
