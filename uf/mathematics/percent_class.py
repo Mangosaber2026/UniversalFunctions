@@ -1,6 +1,5 @@
-# This is the anchor of this module: [[percent_class_anchor|percent_class.py]]
+# Anchor for this module: [[percent_class_anchor|percent_class.py]]
 
-import numbers as num
 
 from .. import validators as vls
 

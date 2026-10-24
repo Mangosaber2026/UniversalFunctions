@@ -1,8 +1,12 @@
+# Anchor for this module: [[decorator-archive-anchor|decorator_archive.py]]
+
 import collections.abc as cabc
 
 from .. import validators as vls
 
 
+# cls_deco_superposition anchor: [[cls-deco-superposition-anchor|cls_deco_superposition]]
+#* Decorates all functions of a class with provided decorators
 def cls_deco_superposition(*decorators):
 
     vls.SequenceValidate(cabc.Callable, ...)(decorators, name="decorators")
@@ -15,6 +19,8 @@ def cls_deco_superposition(*decorators):
         return cls
     return inner
 
+# deco_superposition anchor: [[deco-superposition-anchor|deco_superposition]]
+#* Decorates a function with provided decorators
 def deco_superposition(*decorators):
 
     vls.SequenceValidate(cabc.Callable, ...)(decorators, name="decorators")

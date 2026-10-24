@@ -1,3 +1,5 @@
+# Anchor for this module: [[get-variable-anchor|get_variable.py]]
+
 import numbers as num
 from time import sleep as rest
 import typing as tp
@@ -5,14 +7,9 @@ import typing as tp
 from .. import validators as vls
 
 
-type IntType = type[int]
-type FloatType = type[float]
-
-def get_num(
-        TYPE: FloatType | IntType,
-        entry: str,
-        **options
-) -> num.Real:
+# get_num anchor: [[get-num-anchor|get_num]]
+#* Gets a numerical value from the user, validation depends on the customzation
+def get_num(TYPE, entry, **options):
 
     func_name: tp.Final = "get_num"
     type_obj_name: tp.Final = "TYPE"
@@ -87,6 +84,7 @@ def get_num(
             elif store_var in options:
                 options["store"] = value
             return value
+        
         except ValueError as error:
             print(error)
             rest(1.5)

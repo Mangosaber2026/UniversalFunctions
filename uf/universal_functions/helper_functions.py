@@ -1,4 +1,5 @@
-import collections.abc as cabc
+# Anchor for this module: [[helper-functions-anchor|helper_functions.py]]
+
 import math
 import numbers as num
 
@@ -8,6 +9,8 @@ from . import decorator_archive as dec_arc
 from . import get_variable as gv
 
 
+# HelperFunctions anchor: [[HelperFunctions-anchor|HelperFunctions]]
+#* Contains helper functions which make getting certain values easier for the user
 @dec_arc.cls_deco_superposition(staticmethod)
 class HelperFunctions:
 
@@ -70,8 +73,12 @@ class HelperFunctions:
 
         return cls_to_dict.classes_to_dict(HelperFunctions)
 
+# helper anchor: [[helper-anchor|helper]]
+#* Another name for [[#HelperFunctions-anchor|HelperFunctions]] to make it shorter
 helper = HelperFunctions
 
+# range_f anchor: [[range-f-anchor|range_f]]
+#* Similar to Pythons range function, but with real number inputs functionality
 def range_f(start, stop, step):
     
     items = (start, stop, step)

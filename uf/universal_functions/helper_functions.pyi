@@ -8,10 +8,16 @@ sine -> calculates sine value
 
 range_f -> acts like the conventional range function except for that this takes rational inputs
 """
+#* File type: Python type stub (.pyi)
+#* Purpose: Describes the module's interface for documentation,
+#*          editor support, and static type checking.
+#* Runtime: Contains no implementation; see the corresponding
+#*          .py file for executable code.
 
-from . import decorator_archive as dec_arc
 import numbers as num
 import collections.abc as cabc
+
+from . import decorator_archive as dec_arc
 
 
 @dec_arc.cls_deco_superposition(staticmethod)

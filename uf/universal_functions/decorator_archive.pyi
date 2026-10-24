@@ -1,6 +1,11 @@
 """
 This module contains decorators which take any number of decorators and apply them to the function they are assigned to.
 """
+#* File type: Python type stub (.pyi)
+#* Purpose: Describes the module's interface for documentation,
+#*          editor support, and static type checking.
+#* Runtime: Contains no implementation; see the corresponding
+#*          .py file for executable code.
 
 import collections.abc as cabc
 

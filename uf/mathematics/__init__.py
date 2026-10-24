@@ -1,3 +1,5 @@
+# Anchor for this module: [[mathematics-init-anchor|mathematics.__init__.py]]
+
 #* Imports all available functions and class from [[#percent_class_anchor|percent_class.py]]
 from .percent_class import (
     Percent,  

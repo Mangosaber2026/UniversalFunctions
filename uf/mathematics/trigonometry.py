@@ -1,4 +1,4 @@
-# This is the anchor of this module: [[trigonometry-anchor|trigonometry.py]]
+# Anchor for this module: [[trigonometry-anchor|trigonometry.py]]
 
 import math
 
