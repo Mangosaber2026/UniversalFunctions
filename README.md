@@ -106,6 +106,12 @@ Python 3.14 or later
 
 UniversalFunctions is designed for modern Python and makes use of contemporary Python typing and language features.
 
+### Source Code Navigation
+
+If you wish to explore the source code, installing the [Comment Linking extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=kratiuk.commentlinking) is recommended. The source code contains internal navigation links that help you navigate between modules, classes, functions, and their corresponding definitions.
+
+The extension makes these links easier to recognize and follow, providing a more convenient way to explore the project's internal architecture.
+
 ## License
 
 UniversalFunctions is distributed under the terms of the license included in this repository.
