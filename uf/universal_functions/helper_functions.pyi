@@ -106,6 +106,8 @@ class HelperFunctions:
         :return: a dictionary with function names as keys and function objects as values
         """
 
+helper: type = HelperFunctions
+
 def range_f(
         start: num.Real,
         stop: num.Real,

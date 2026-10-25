@@ -23,6 +23,14 @@ functions. These are still extremely important to the rest of the main package a
 not be changed!
 """
 
+#* 📝 Imports the contributions package containing CONTRIBUTIONS.md
+#* 📝 which contains information regarding external contributions to this software
+from . import contributions
+
+#* 📝 Imports the editor_configs package containing a README.md and vscode-settings.json
+#* 📝 which contains the configurations I used to develop this software
+from . import editor_configs
+
 #* 📝 Imports functions and classes from the [[#mathematics-anchor|mathematics package]] 
 from .mathematics import (
     Percent,  
@@ -176,6 +184,9 @@ from .validators import (
 
 #* 📝 Specifies all available classes, functionsand constants through wildcard import
 __all__ = [
+   "contributions",
+   "editor_configs",
+    
    "Percent",
    "pct10",
    "pct20",
