@@ -27,6 +27,7 @@ class HelperFunctions:
     so that the user can easily use them without having to write the code for them again.
     """
 
+    @staticmethod
     def intervals_f() -> num.Real:
         """
         Asks the user for rational intervals.
@@ -34,6 +35,7 @@ class HelperFunctions:
         :return: the number of intervals as a rational number
         """
 
+    @staticmethod
     def length_float() -> num.Real:
         """
         Asks the user for rational lengths.
@@ -41,6 +43,7 @@ class HelperFunctions:
         :return: the length as a rational number
         """
 
+    @staticmethod
     def radius_float() -> num.Real:
         """
         Asks the user for rational radius.
@@ -48,6 +51,7 @@ class HelperFunctions:
         :return: the radius as a rational number
         """
 
+    @staticmethod
     def object_num() -> int:
         """
         Asks the user for the number of objects.
@@ -55,6 +59,7 @@ class HelperFunctions:
         :return: the number of objects as an integer
         """
 
+    @staticmethod
     def sides_num() -> int:
         """
         Asks the user for the number of sides.
@@ -62,6 +67,7 @@ class HelperFunctions:
         :return: the number of sides as an integer
         """
 
+    @staticmethod
     def row_num() -> int:
         """
         Asks the user for the number of rows.
@@ -69,6 +75,7 @@ class HelperFunctions:
         :return: the number of rows as an integer
         """
 
+    @staticmethod
     def row_pair() -> int:
         """
         Asks the user for the number of pairs of rows.
@@ -85,6 +92,7 @@ class HelperFunctions:
         :return: a tuple containing the diameter and half of the diameter
         """
 
+    @staticmethod
     def x_ft() -> num.Real:
         """
         Asks the user for the x value (on the coordinate system).
@@ -92,6 +100,7 @@ class HelperFunctions:
         :return: the x value as a rational number
         """
 
+    @staticmethod
     def y_ft() -> num.Real:
         """
         Asks the user for the y value (on the coordinate system).
@@ -99,6 +108,7 @@ class HelperFunctions:
         :return: the y value as a rational number
         """
 
+    @staticmethod
     def list_helperfunctions() -> dict:
         """
         Returns a dictionary of all the helper functions in this class.
@@ -106,7 +116,7 @@ class HelperFunctions:
         :return: a dictionary with function names as keys and function objects as values
         """
 
-helper: type
+helper: type[HelperFunctions] = HelperFunctions
 
 def range_f(
         start: num.Real,
