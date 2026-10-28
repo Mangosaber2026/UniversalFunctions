@@ -7,6 +7,7 @@ This module contains an extremely important function: get_str, which takes a str
  #* 📝 Runtime: Contains no implementation; see the corresponding
  #* 📝         .py file for executable code.
 
+
 def get_str(str_input: str, *check_values) -> str:
     """
     Checks whether the input string matches the allowed values (*check_values).

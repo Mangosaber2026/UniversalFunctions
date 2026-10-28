@@ -1,8 +1,13 @@
 """
 This module contains type validators for list and tuple which belong to the QTM Dimension.
 """
+ #* 📝 File type: Python type stub (.pyi)
+ #* 📝 Purpose: Describes the module's interface for documentation,
+ #* 📝         editor support, and static type checking.
+ #* 📝 Runtime: Contains no implementation; see the corresponding
+ #* 📝         .py file for executable code.
 
-import typing as tp
+import typing as tp  # noqa: I001
 
 
 def qtm_lt_validator(

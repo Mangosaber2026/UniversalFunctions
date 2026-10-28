@@ -1,8 +1,13 @@
 """
 This module contains a validator and decorator from the QTM Dimension.
 """
+ #* 📝 File type: Python type stub (.pyi)
+ #* 📝 Purpose: Describes the module's interface for documentation,
+ #* 📝         editor support, and static type checking.
+ #* 📝 Runtime: Contains no implementation; see the corresponding
+ #* 📝         .py file for executable code.
 
-import collections.abc as cabc
+import collections.abc as cabc  # noqa: I001
 
 
 def qtm_func_validator(func: cabc.Callable, *args, **kwargs) -> cabc.Callable:

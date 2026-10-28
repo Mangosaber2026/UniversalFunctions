@@ -4,8 +4,13 @@ are not normally provided with Python.
 
 The custom errors in this module can be used just like any other conventional error provided by Python itself.
 """
+ #* 📝 File type: Python type stub (.pyi)
+ #* 📝 Purpose: Describes the module's interface for documentation,
+ #* 📝         editor support, and static type checking.
+ #* 📝 Runtime: Contains no implementation; see the corresponding
+ #* 📝         .py file for executable code.
 
-import collections.abc as cabc
+import collections.abc as cabc  # noqa: I001
 import typing as tp
 
 
@@ -105,6 +110,7 @@ def attribute_error() -> cabc.Callable:
    :return: ErrorDedent function
    """
 
+
 class ItemCountError(Exception):
    """
    This exception is raised when an item count does not match the expected count.
@@ -112,6 +118,7 @@ class ItemCountError(Exception):
    >>> print(ItemCountError("This is an Item Count Error!"))
    This is an Item Count Error!
    """
+
 
 class ConstraintError(Exception):
    """
