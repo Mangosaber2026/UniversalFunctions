@@ -14,13 +14,14 @@ range_f -> acts like the conventional range function except for that this takes 
  #* 📝 Runtime: Contains no implementation; see the corresponding
  #* 📝         .py file for executable code.
 
+import collections.abc as cabc  # noqa: I001
 import numbers as num
-import collections.abc as cabc
-
-from . import decorator_archive as dec_arc
 
 
-@dec_arc.cls_deco_superposition(staticmethod)
+#* 📝 Type for any real number
+type RealType = float | int | num.Real
+
+
 class HelperFunctions:
     """
     This class provides a collection of reusable helper functions
@@ -28,7 +29,7 @@ class HelperFunctions:
     """
 
     @staticmethod
-    def intervals_f() -> num.Real:
+    def intervals_f() -> RealType:
         """
         Asks the user for rational intervals.
 
@@ -36,7 +37,7 @@ class HelperFunctions:
         """
 
     @staticmethod
-    def length_float() -> num.Real:
+    def length_float() -> RealType:
         """
         Asks the user for rational lengths.
 
@@ -44,7 +45,7 @@ class HelperFunctions:
         """
 
     @staticmethod
-    def radius_float() -> num.Real:
+    def radius_float() -> RealType:
         """
         Asks the user for rational radius.
 
@@ -83,7 +84,8 @@ class HelperFunctions:
         :return: the number of pairs of rows as an integer
         """
 
-    def diameter_sq(length: num.Real) -> tuple[num.Real, num.Real]:
+    @staticmethod
+    def diameter_sq(length: RealType) -> tuple[RealType, RealType]:
         """
         Calculates the diameter of a square with given length.
 
@@ -93,7 +95,7 @@ class HelperFunctions:
         """
 
     @staticmethod
-    def x_ft() -> num.Real:
+    def x_ft() -> RealType:
         """
         Asks the user for the x value (on the coordinate system).
 
@@ -101,7 +103,7 @@ class HelperFunctions:
         """
 
     @staticmethod
-    def y_ft() -> num.Real:
+    def y_ft() -> RealType:
         """
         Asks the user for the y value (on the coordinate system).
 
@@ -116,13 +118,15 @@ class HelperFunctions:
         :return: a dictionary with function names as keys and function objects as values
         """
 
-helper: type[HelperFunctions] = HelperFunctions
+
+helper: type[HelperFunctions]
+
 
 def range_f(
-        start: num.Real,
-        stop: num.Real,
-        step: num.Real
-) -> cabc.Generator[num.Real, None, None]:
+        start: RealType,
+        stop: RealType,
+        step: RealType
+) -> cabc.Generator[RealType]:
     """
     Lets the user choose Real inputs for start, stop and step.
 

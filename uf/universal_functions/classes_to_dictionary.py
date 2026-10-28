@@ -9,9 +9,12 @@ from .. import validators as vls
 #* 📝 mapping its function names with the function
 def classes_to_dict(*classes):
 
-    vls.SequenceValidate(type, ...)(classes, name="classes")
+    vls.SequenceValidate(type, ...)(value=classes, name="classes")
+
     dictionary = {}
+
     for cls in classes:
+        
         dictionary.update({
             name: obj
             for name, obj in vars(cls).items()

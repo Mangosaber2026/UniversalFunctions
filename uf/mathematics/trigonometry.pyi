@@ -7,10 +7,14 @@ This module contains a collection of trigonometric functions to be used with deg
  #* 📝 Runtime: Contains no implementation; see the corresponding
  #* 📝         .py file for executable code.
 
-import numbers as num
+import numbers as num  # noqa: I001
 
 
-def sine(angle: num.Real) -> num.Real:
+#* 📝 Type for any real number
+type RealType = float | int | num.Real
+
+
+def sine(angle: RealType) -> RealType:
     """
     Calculates the sine of a given angle.
 
@@ -22,7 +26,8 @@ def sine(angle: num.Real) -> num.Real:
     :return: sine value
     """
 
-def cosine(angle: num.Real) -> num.Real:
+
+def cosine(angle: RealType) -> RealType:
     """
     Calculates the cosine of a given angle.
 
@@ -34,7 +39,8 @@ def cosine(angle: num.Real) -> num.Real:
     :return: cosine value
     """
 
-def tangent(angle: num.Real) -> num.Real:
+
+def tangent(angle: RealType) -> RealType:
     """
     Calculates the tangent of a given angle.
 
@@ -46,7 +52,8 @@ def tangent(angle: num.Real) -> num.Real:
     :return: tangent value
     """
 
-def asine(value: num.Real) -> num.Real:
+
+def asine(value: RealType) -> RealType:
     """
     Calculates the asine of a given angle.
 

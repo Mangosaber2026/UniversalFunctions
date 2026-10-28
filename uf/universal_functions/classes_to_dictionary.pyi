@@ -7,7 +7,7 @@ This module contains a function that takes all functions in a class and make a d
  #* 📝 Runtime: Contains no implementation; see the corresponding
  #* 📝         .py file for executable code.
 
-import collections.abc as cabc
+import collections.abc as cabc  # noqa: I001
 
 
 def classes_to_dict(*classes: type) -> dict[str, cabc.Callable]:

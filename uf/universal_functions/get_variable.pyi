@@ -7,7 +7,7 @@ This module contains an extremely important function: get_num, which takes a num
  #* 📝 Runtime: Contains no implementation; see the corresponding
  #* 📝         .py file for executable code.
 
-import numbers as num
+import numbers as num  # noqa: I001
 import typing as tp
 
 
@@ -17,21 +17,26 @@ type IntType = type[int]
  #* 📝 Type for a floating point value
 type FloatType = type[float]
 
+#* 📝 Type for any real number
+type RealType = float | int | num.Real
+
  #* 📝 For given `TYPE` = int, given `entry` is a string, extra customizations through **options,
  #* 📝 an integer is returned
 @tp.overload
 def get_num(TYPE: IntType, entry: str, **options) -> int: ...
+
 
  #* 📝 For given `TYPE` = float, given `entry` is a string, extra customizations through **options,
  #* 📝 a floating point number is returned
 @tp.overload
 def get_num(TYPE: FloatType, entry: str, **options) -> float: ...
 
+
 def get_num(
         TYPE: FloatType | IntType,
         entry: str,
         **options
-) -> num.Real:
+) -> RealType:
     """
     Gets a real numerical value from the user.
 

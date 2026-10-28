@@ -10,14 +10,18 @@ The Percent class is designed to be used in mathematical calculations where perc
  #* 📝 Runtime: Contains no implementation; see the corresponding
  #* 📝         .py file for executable code.
 
-import numbers as num
+import numbers as num  # noqa: I001
+
+
+#* 📝 Type for any real number
+type RealType = float | int | num.Real
 
 
 class Percent:
     """
     This class calculates a chosen percentage of a given value.
     """
-    def __init__(self, percentage: num.Real) -> None:
+    def __init__(self, percentage: RealType) -> None:
         """
         Initializes the percentage value.
 
@@ -26,7 +30,7 @@ class Percent:
         :return: None
         """
 
-    def __call__(self, value: num.Real) -> num.Real:
+    def __call__(self, value: RealType) -> RealType:
         """
         Calculates the percentage value.
 
@@ -35,7 +39,8 @@ class Percent:
         :return: calculated percentage value
         """
 
-def pct10(value: num.Real) -> num.Real:
+
+def pct10(value: RealType) -> RealType:
     """
     Calculates 10% percent of the given value
 
@@ -44,7 +49,8 @@ def pct10(value: num.Real) -> num.Real:
     :return: 10% of the given value
     """
 
-def pct20(value: num.Real) -> num.Real:
+
+def pct20(value: RealType) -> RealType:
     """
     Calculates 20% percent of the given value
 
@@ -53,7 +59,8 @@ def pct20(value: num.Real) -> num.Real:
     :return: 20% of the given value
     """
 
-def pct25(value: num.Real) -> num.Real:
+
+def pct25(value: RealType) -> RealType:
     """
     Calculates 25% percent of the given value
 
@@ -62,7 +69,8 @@ def pct25(value: num.Real) -> num.Real:
     :return: 25% of the given value
     """
 
-def pct30(value: num.Real) -> num.Real:
+
+def pct30(value: RealType) -> RealType:
     """
     Calculates 30% percent of the given value
 
@@ -71,7 +79,8 @@ def pct30(value: num.Real) -> num.Real:
     :return: 30% of the given value
     """
 
-def pct40(value: num.Real) -> num.Real:
+
+def pct40(value: RealType) -> RealType:
     """
     Calculates 40% percent of the given value
 
@@ -80,7 +89,8 @@ def pct40(value: num.Real) -> num.Real:
     :return: 40% of the given value
     """
 
-def pct50(value: num.Real) -> num.Real:
+
+def pct50(value: RealType) -> RealType:
     """
     Calculates 50% percent of the given value
 
@@ -89,7 +99,8 @@ def pct50(value: num.Real) -> num.Real:
     :return: 50% of the given value
     """
 
-def pct60(value: num.Real) -> num.Real:
+
+def pct60(value: RealType) -> RealType:
     """
     Calculates 60% percent of the given value
 
@@ -98,7 +109,8 @@ def pct60(value: num.Real) -> num.Real:
     :return: 60% of the given value
     """
 
-def pct70(value: num.Real) -> num.Real:
+
+def pct70(value: RealType) -> RealType:
     """
     Calculates 70% percent of the given value
 
@@ -107,7 +119,8 @@ def pct70(value: num.Real) -> num.Real:
     :return: 70% of the given value
     """
 
-def pct75(value: num.Real) -> num.Real:
+
+def pct75(value: RealType) -> RealType:
     """
     Calculates 75% percent of the given value
 
@@ -116,7 +129,8 @@ def pct75(value: num.Real) -> num.Real:
     :return: 75% of the given value
     """
 
-def pct80(value: num.Real) -> num.Real:
+
+def pct80(value: RealType) -> RealType:
     """
     Calculates 80% percent of the given value
 
@@ -125,7 +139,8 @@ def pct80(value: num.Real) -> num.Real:
     :return: 80% of the given value
     """
 
-def pct90(value: num.Real) -> num.Real:
+
+def pct90(value: RealType) -> RealType:
     """
     Calculates 90% percent of the given value
 

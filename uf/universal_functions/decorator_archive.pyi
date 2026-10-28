@@ -7,7 +7,7 @@ This module contains decorators which take any number of decorators and apply th
  #* 📝 Runtime: Contains no implementation; see the corresponding
  #* 📝         .py file for executable code.
 
-import collections.abc as cabc
+import collections.abc as cabc  # noqa: I001
 
 
 def cls_deco_superposition(*decorators: cabc.Callable) -> cabc.Callable:
@@ -18,6 +18,7 @@ def cls_deco_superposition(*decorators: cabc.Callable) -> cabc.Callable:
     
     :return: a class decorator that transforms the class (& it's functions) and returns it
     """
+
 
 def deco_superposition(*decorators: cabc.Callable) -> cabc.Callable:
     """

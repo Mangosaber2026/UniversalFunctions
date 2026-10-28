@@ -5,11 +5,26 @@ The classes themselves not only validate the given value against the expected ty
 validate the parameters. After the entered value has passed the validation, it is simply returned, though
 if it does not pass validation, an error is raised.
 """
+ #* 📝 File type: Python type stub (.pyi)
+ #* 📝 Purpose: Describes the module's interface for documentation,
+ #* 📝         editor support, and static type checking.
+ #* 📝 Runtime: Contains no implementation; see the corresponding
+ #* 📝         .py file for executable code.
 
-import typing as tp
+import collections.abc as cabc  # noqa: I001
 import numbers as num
 import types as tps
-import collections.abc as cabc
+import typing as tp
+
+
+#* 📝 Type for any real number
+type RealType = float | int | num.Real
+
+#* 📝 Type for any sequence
+type SequenceType = tuple | list 
+
+#* 📝 Type for the name of a given variable
+type NameType = str | None
 
 
 class TypeValidate:
@@ -36,7 +51,7 @@ class TypeValidate:
             :return: None
             """
 
-    def __call__(self, value: tp.Any, name: str | None = None) -> tp.Any:
+    def __call__(self, value: tp.Any, name: NameType = None) -> tp.Any:
             """
             Validates the entered value, expected to be of expected type.
     
@@ -57,6 +72,7 @@ def int_validate() -> TypeValidate:
     :return: TypeValidate object with int as expected type.
     """
 
+
 def str_validate() -> TypeValidate:
     """
     Makes sure the entered value is a string with TypeValidate.
@@ -66,6 +82,7 @@ def str_validate() -> TypeValidate:
 
     :return: TypeValidate object with str as expected type.
     """
+
 
 def real_validate() -> TypeValidate:
     """
@@ -77,11 +94,12 @@ def real_validate() -> TypeValidate:
     :return: TypeValidate object with numbers.Real as expected type.
     """
 
+
 class RealValidationParent:
     """
     Parent class for classes which require an expected real number value when an instance is made of them.
     """
-    def __init__(self, expected: num.Real) -> None:
+    def __init__(self, expected: RealType) -> None:
         """
         Makes sure the entered expected value is a real number.
 
@@ -89,6 +107,7 @@ class RealValidationParent:
 
         :return: None
         """
+
 
 class Positive:
     """
@@ -99,7 +118,7 @@ class Positive:
     """
     name: tp.Final
 
-    def __call__(self, value: num.Real, name: str|None = None) -> num.Real:
+    def __call__(self, value: RealType, name: NameType = None) -> RealType:
         """
         Validates the entered value, expected to be positive (above 0).
 
@@ -110,6 +129,7 @@ class Positive:
         :return: validated value.
         """
 
+
 class LessThan(RealValidationParent):
     """
     Makes sure the entered value is less than expected value.
@@ -119,7 +139,7 @@ class LessThan(RealValidationParent):
     """
     name: tp.Final
 
-    def __call__(self, value: num.Real, name: str|None = None) -> num.Real:
+    def __call__(self, value: RealType, name: NameType = None) -> RealType:
         """
         Validates the entered value, expected to be less than expected value.
 
@@ -129,6 +149,7 @@ class LessThan(RealValidationParent):
 
         :return: validated value.
         """
+
 
 class LessOrEqual(RealValidationParent):
     """
@@ -141,7 +162,7 @@ class LessOrEqual(RealValidationParent):
     """
     name: tp.Final
 
-    def __call__(self, value: num.Real, name: str|None = None) -> num.Real:
+    def __call__(self, value: RealType, name: NameType = None) -> RealType:
         """
         Validates the entered value, expected to be less than or equal to expected value.
 
@@ -152,6 +173,7 @@ class LessOrEqual(RealValidationParent):
         :return: validated value.
         """
 
+
 class GreaterThan(RealValidationParent):
     """
     Makes sure the entered value is greater than expected value.
@@ -161,7 +183,7 @@ class GreaterThan(RealValidationParent):
     """
     name: tp.Final
 
-    def __call__(self, value: num.Real, name: str|None = None) -> num.Real:
+    def __call__(self, value: RealType, name: NameType = None) -> RealType:
         """
         Validates the entered value, expected to be greater than expected value.
 
@@ -171,6 +193,7 @@ class GreaterThan(RealValidationParent):
 
         :return: validated value.
         """
+
 
 class GreaterOrEqual(RealValidationParent):
     """
@@ -183,7 +206,7 @@ class GreaterOrEqual(RealValidationParent):
     """
     name: tp.Final
 
-    def __call__(self, value: num.Real, name: str|None = None) -> num.Real:
+    def __call__(self, value: RealType, name: NameType = None) -> RealType:
         """
         Validates the entered value, expected to be greater than or equal to expected value.
 
@@ -193,6 +216,7 @@ class GreaterOrEqual(RealValidationParent):
 
         :return: validated value.
         """
+
 
 class SequenceValidate:
     """
@@ -207,6 +231,7 @@ class SequenceValidate:
     [[1, 2], [3, 4]]
     """
     name: tp.Final[str]
+    
     def __init__(self, *expected: type | tps.EllipsisType, **kwargs) -> None:
         """
         Makes sure the entered expected value is a sequence of any value.
@@ -216,7 +241,7 @@ class SequenceValidate:
         :return: None
         """
 
-    def __call__(self, value: tuple|list, name: str|None = None) -> tuple|list:
+    def __call__(self, value: SequenceType, name: NameType = None) -> SequenceType:
         """
         Validates the entered value, expected to be a sequence of any value.
 
@@ -231,7 +256,7 @@ class ComboValidate:
     """
     This class takes a value (and name if provided) and uses the given validators to validate it.
     """
-    def __init__(self, value: tp.Any, name: str | None = None) -> None:
+    def __init__(self, value: tp.Any, name: NameType = None) -> None:
         """
         This initiates the validator class with a given value and if desired, it's name.
             
