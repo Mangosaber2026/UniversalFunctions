@@ -3,8 +3,8 @@
 
 lazy import typing as tp
 
+lazy from . import errors
 lazy from . import validation_classes as vcls
-lazy from .errors import type_error
 
 
 # ⚓ qtm_lt_validator anchor: [[qtm-lt-validator-anchor|qtm_lt_validator()]] 
@@ -16,7 +16,7 @@ def qtm_lt_validator(value, TYPE, name):
     origin = tp.get_origin(TYPE)
     
     if origin not in (list, tuple):
-        raise type_error()(text=
+        raise errors.type_error()(text=
             f"""
             Validator: {func_name}
             Parameter TYPE must be a list/tuple of elements!
@@ -39,7 +39,7 @@ def qtm_constr_validator(value, annotation, name):
 
     if tp.get_origin(annotation) is not tp.Annotated:
 
-        raise type_error()(text=
+        raise errors.type_error()(text=
             f"""
             Validator: {func_name}
             Parameter annotation is not an Annotated type!
