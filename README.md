@@ -102,7 +102,7 @@ UniversalFunctions contains several architectural concepts inspired by the inter
 These names describe architectural concepts within the project's validation and infrastructure systems.
 
 ## Requirements
-Python 3.14 or later
+Python 3.15 or later
 
 UniversalFunctions is designed for modern Python and makes use of contemporary Python typing and language features.
 
