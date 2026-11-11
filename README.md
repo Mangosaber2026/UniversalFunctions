@@ -12,11 +12,11 @@ Install UniversalFunctions from PyPI:
 pip install UniversalFunctions
 ```
 
-The package requires Python 3.14 or later.
+The package requires Python 3.15 or later.
 
 ## Usage
 
-UniversalFunctions is imported through the UF Python package:
+UniversalFunctions is imported through the uf Python package:
 
 ```python
 from uf.validators import TypeValidate
@@ -25,17 +25,17 @@ from numbers import Real
 TypeValidate(Real)(56)
 ```
 
-The distribution name is UniversalFunctions, while the Python import package is UF.
+The distribution name is UniversalFunctions, while the Python import package is uf.
 
 ## Package Structure
 
 UniversalFunctions is organized into several foundational components:
 
-### UF
+### uf
 
 The main package containing the core infrastructure and utilities.
 
-### UF.Validators
+### uf.Validators
 
 Provides runtime validation utilities and validation classes for enforcing types, ranges, relationships, and other constraints.
 
