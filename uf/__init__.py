@@ -25,7 +25,7 @@ not be changed!
 
 
 #* 📝 Imports functions and classes from the [[#mathematics-anchor|mathematics package]] 
-from .mathematics import (  # noqa: I001
+lazy from .mathematics import (  # noqa: I001
     Percent,  
     # 🔗 Link to source code: [[#Percent-anchor|class Percent]] 
 
@@ -74,7 +74,7 @@ from .mathematics import (  # noqa: I001
 
 
 #* 📝 Imports functions, classes and aliases from the [[#universal-functions-anchor|universal_functions package]] 
-from .universal_functions import (
+lazy from .universal_functions import (
    classes_to_dict,
    # 🔗 Link to source code: [[#classes-to-dict-anchor|classes_to_dict()]] 
 
@@ -102,7 +102,7 @@ from .universal_functions import (
 
 
 #* 📝 Imports classes and functions from the [[#validators-anchor|validators package]] 
-from .validators import (
+lazy from .validators import (
    ComboValidate,
    # 🔗 Link to source code: [[#ComboValidate-anchor|class ComboValidate]] 
 
