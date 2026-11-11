@@ -1,4 +1,4 @@
-# ⚓ Anchor for this module: [[uf-anchor|uf.__init__.py]] 
+# ⚓ Anchor for this module: [[uf-anchor|uf.__init__.py]]  
 
 """
 Welcome to the bridge between the Quantum Dimension and Python
