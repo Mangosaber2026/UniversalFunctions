@@ -1,13 +1,13 @@
 # ⚓ Anchor for this module: [[universal-functions-anchor|universal_functions.__init__.py]] 
 
  #* 📝 Imports function from [[#classes-to-dictionary-anchor|classes_to_dictionary.py]] 
-from .classes_to_dictionary import (
+lazy from .classes_to_dictionary import (
  classes_to_dict,
  # 🔗 Link to source code: [[#classes-to-dict-anchor|classes_to_dict()]] 
 )
 
 #* 📝 Imports functions from [[#decorator-archive-anchor|decorator_archive.py]] 
-from .decorator_archive import (
+lazy from .decorator_archive import (
  cls_deco_superposition,
  # 🔗 Link to source code: [[#cls-deco-superposition-anchor|cls_deco_superposition()]] 
  deco_superposition,
@@ -15,19 +15,19 @@ from .decorator_archive import (
 )
 
 #* 📝 Imports function from [[#get-string-anchor|get_string.py]] 
-from .get_string import (
+lazy from .get_string import (
  get_str,
  # 🔗 Link to source code: [[#get-str-anchor|get_str()]] 
 )
 
 #* 📝 Imports function from [[#get-variable-anchor|get_variable.py]] 
-from .get_variable import (
+lazy from .get_variable import (
  get_num,
  # 🔗 Link to source code: [[#get-num-anchor|get_num()]] 
 )
 
 #* 📝 Imports class and functions from [[#helper-functions-anchor|helper_functions.py]] 
-from .helper_functions import (
+lazy from .helper_functions import (
  HelperFunctions,
  # 🔗 Link to source code: [[#HelperFunctions-anchor|class HelperFunctions]] 
  helper,

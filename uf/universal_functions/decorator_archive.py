@@ -1,13 +1,13 @@
 # ⚓ Anchor for this module: [[decorator-archive-anchor|decorator_archive.py]] 
 # 🔗 Parent package: [[#universal-functions-anchor|universal_functions]] 
 
-import collections.abc as cabc
+lazy import collections.abc as cabc
 
-from .. import validators as vls
+lazy from .. import validators as vls
 
 
 # ⚓ cls_deco_superposition anchor: [[cls-deco-superposition-anchor|cls_deco_superposition()]] 
- #* 📝 Decorates all functions of a class with provided decorators
+#* 📝 Decorates all functions of a class with provided decorators
 def cls_deco_superposition(*decorators):
 
     vls.SequenceValidate(cabc.Callable, ...)(value=decorators, name="decorators")     # pyright: ignore[reportArgumentType]
@@ -24,8 +24,8 @@ def cls_deco_superposition(*decorators):
     return inner
 
 
-# ⚓ deco_superposition anchor: [[deco-superposition-anc 
- #* 📝 Decorates a function with provided decorators
+# ⚓ deco_superposition anchor: [[deco-superposition-anchor|deco_superposition()]]
+#* 📝 Decorates a function with provided decorators
 def deco_superposition(*decorators):
 
     vls.SequenceValidate(cabc.Callable, ...)(value=decorators, name="decorators")     # pyright: ignore[reportArgumentType]

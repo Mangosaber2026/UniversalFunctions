@@ -1,10 +1,10 @@
 # ⚓ Anchor for this module: [[quantum-validators-anchor|quantum_validators.py]] 
 # 🔗 Parent package: [[#validators-anchor|validators]] 
 
-import typing as tp
+lazy import typing as tp
 
-from . import validation_classes as vcls
-from .errors import type_error
+lazy from . import validation_classes as vcls
+lazy from .errors import type_error
 
 
 # ⚓ qtm_lt_validator anchor: [[qtm-lt-validator-anchor|qtm_lt_validator()]] 

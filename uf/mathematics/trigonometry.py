@@ -1,9 +1,9 @@
 # ⚓ Anchor for this module: [[trigonometry-anchor|trigonometry.py]] 
 # 🔗 Parent package: [[#mathematics-anchor|mathematics]] 
 
-import math
+lazy import math
 
-from .. import validators as vls
+lazy from .. import validators as vls
 
 
 # ⚓ Sine function anchor: [[sine-anchor|sine()]] 

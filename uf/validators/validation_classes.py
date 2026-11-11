@@ -1,12 +1,12 @@
 # ⚓ Anchor for this module: [[validation-classes-anchor|validation_classes.py]] 
 # 🔗 Parent package: [[#validators-anchor|validators]] 
 
-import collections.abc as cabc
-import itertools as itls
-import numbers as num
-import types as tps
+lazy import collections.abc as cabc
+lazy import itertools as itls
+lazy import numbers as num
+lazy import types as tps
 
-from . import errors
+lazy from . import errors
 
 
 # ⚓ TypeValidate anchor: [[TypeValidate-anchor|class TypeValidate]] 

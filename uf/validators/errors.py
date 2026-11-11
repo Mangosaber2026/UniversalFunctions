@@ -1,7 +1,7 @@
 # ⚓ Anchor for this module: [[errors-anchor|errors.py]] 
 # 🔗 Parent package: [[#validators-anchor|validators]] 
 
-import textwrap
+lazy import textwrap
 
 
 # ⚓ ErrorDedent anchor: [[ErrorDedent-anchor|class ErrorDedent]] 

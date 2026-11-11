@@ -1,15 +1,15 @@
 # ⚓ Anchor for this module: [[helper-functions-anchor|helper_functions.py]] 
 # 🔗 Parent package: [[#universal-functions-anchor|universal_functions]] 
 
-import math
+lazy import math
 
-from .. import validators as vls
-from . import classes_to_dictionary as cls_to_dict
-from . import get_variable as gv
+lazy from .. import validators as vls
+lazy from . import classes_to_dictionary as cls_to_dict
+lazy from . import get_variable as gv
 
 
 # ⚓ HelperFunctions anchor: [[HelperFunctions-anchor|class HelperFunctions]] 
- #* 📝 Contains helper functions which make getting certain values easier for the user
+#* 📝 Contains helper functions which make getting certain values easier for the user
 class HelperFunctions:
 
     # ⚓ intervals_f anchor: [[HelperFunctions-intervals-f-anchor|intervals_f()]] 

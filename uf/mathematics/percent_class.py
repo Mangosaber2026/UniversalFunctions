@@ -2,7 +2,7 @@
 # 🔗 Parent package: [[#mathematics-anchor|mathematics]] 
 
 
-from .. import validators as vls
+lazy from .. import validators as vls
 
 
 # ⚓ Percent class anchor: [[Percent-anchor|class Percent]] 

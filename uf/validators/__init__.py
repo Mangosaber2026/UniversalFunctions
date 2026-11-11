@@ -17,8 +17,8 @@ Abbreviations:
 All functions with qtm belong to the Quantum Dimension whereas all functions with ctm belong to the Classical Dimension
 """
 
- #* 📝 Imports error classes and functions from [[#errors-anchor|errors.py]] 
-from .errors import (
+#* 📝 Imports error classes and functions from [[#errors-anchor|errors.py]] 
+lazy from .errors import (
  ConstraintError,
  # 🔗 Link to source code: [[#ConstraintError-anchor|class ConstraintError]] 
  ErrorDedent,
@@ -38,7 +38,7 @@ from .errors import (
 )
 
 #* Imports functions from [[#quantum-func-validators-anchor|quantum_func_validators.py]] 
-from .quantum_func_validators import (
+lazy from .quantum_func_validators import (
  qtm_func_validator,
  # 🔗 Link to source code: [[#qtm-func-validator-anchor|qtm_func_validator()]] 
  qtm_validation_decorator,
@@ -46,7 +46,7 @@ from .quantum_func_validators import (
 )
 
 #* Imports functions from [[#quantum-validators-anchor|quantum_validators.py]] 
-from .quantum_validators import (
+lazy from .quantum_validators import (
  qtm_constr_validator,
  # 🔗 Link to source code: [[#qtm-constr-validator-anchor|qtm_constr_validator()]] 
  qtm_lt_validator,
@@ -54,7 +54,7 @@ from .quantum_validators import (
 )
 
 #* Imports classes and functions from [[#validation-classes-anchor|validation_classes.py]] 
-from .validation_classes import (
+lazy from .validation_classes import (
  ComboValidate,
  # 🔗 Link to source code: [[#ComboValidate-anchor|class ComboValidate]] 
  GreaterOrEqual,

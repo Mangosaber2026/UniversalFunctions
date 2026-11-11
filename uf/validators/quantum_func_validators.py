@@ -1,13 +1,13 @@
 # ⚓ Anchor for this module: [[quantum-func-validators-anchor|quantum_func_validators.py]] 
 # 🔗 Parent package: [[#validators-anchor|validators]] 
 
-import collections.abc as cabc
-import functools as ft
-import inspect as ins
-import typing as tp
+lazy import collections.abc as cabc
+lazy import functools as ft
+lazy import inspect as ins
+lazy import typing as tp
 
-from . import quantum_validators as qtm_vls
-from . import validation_classes as vcls
+lazy from . import quantum_validators as qtm_vls
+lazy from . import validation_classes as vcls
 
 
 # ⚓ qtm_func_validator anchor: [[qtm-func-validator-anchor|qtm_func_validator()]] 

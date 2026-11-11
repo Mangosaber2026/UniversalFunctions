@@ -1,7 +1,7 @@
 # ⚓ Anchor for this module: [[mathematics-anchor|mathematics.__init__.py]] 
 
  #* 📝 Imports all available functions and classes from [[#percent_class_anchor|percent_class.py]]
-from .percent_class import (
+lazy from .percent_class import (
  Percent,
  # 🔗 Link to source code: [[#Percent-anchor|class Percent]] 
  pct10,
@@ -29,7 +29,7 @@ from .percent_class import (
 )
 
 #* 📝 Imports all functions from [[#trigonometry-anchor|trigonometry.py]] 
-from .trigonometry import (
+lazy from .trigonometry import (
  asine,
  # 🔗 Link to source code: [[#asine-anchor|asine()]] 
  cosine,
